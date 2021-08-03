@@ -1,0 +1,357 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>AnsibleFest 2020 - Automating IPAM In Cloud - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="AnsibleFest 2020, like most conferences this year, took place completely virtual. I presented on Automating IPAM In Cloud: Ansible + Netbox. You can find the slides along with the demonstration code in this git repo. In this post, I&amp;rsquo;m going to expand a little further on the content I presented.
+What is IPAM? IP Address Management (IPAM) is the critical component that organizes your IP addresses and networks in one place.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2020/automating-cloud-ipam/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="AnsibleFest 2020 - Automating IPAM In Cloud">
+<meta property="og:description" content="AnsibleFest 2020, like most conferences this year, took place completely virtual. I presented on Automating IPAM In Cloud: Ansible + Netbox. You can find the slides along with the demonstration code in this git repo. In this post, I&rsquo;m going to expand a little further on the content I presented.
+What is IPAM? IP Address Management (IPAM) is the critical component that organizes your IP addresses and networks in one place.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2020/automating-cloud-ipam/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2020-10-13T07:16:08-04:00">
+<meta property="article:modified_time" content="2020-10-13T07:16:08-04:00">
+<meta itemprop=name content="AnsibleFest 2020 - Automating IPAM In Cloud">
+<meta itemprop=description content="AnsibleFest 2020, like most conferences this year, took place completely virtual. I presented on Automating IPAM In Cloud: Ansible + Netbox. You can find the slides along with the demonstration code in this git repo. In this post, I&rsquo;m going to expand a little further on the content I presented.
+What is IPAM? IP Address Management (IPAM) is the critical component that organizes your IP addresses and networks in one place."><meta itemprop=datePublished content="2020-10-13T07:16:08-04:00">
+<meta itemprop=dateModified content="2020-10-13T07:16:08-04:00">
+<meta itemprop=wordCount content="1620">
+<meta itemprop=keywords content="ansible,ansiblefest,azure,ipam,netbox,cisco asr,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="AnsibleFest 2020 - Automating IPAM In Cloud">
+<meta name=twitter:description content="AnsibleFest 2020, like most conferences this year, took place completely virtual. I presented on Automating IPAM In Cloud: Ansible + Netbox. You can find the slides along with the demonstration code in this git repo. In this post, I&rsquo;m going to expand a little further on the content I presented.
+What is IPAM? IP Address Management (IPAM) is the critical component that organizes your IP addresses and networks in one place."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>AnsibleFest 2020 - Automating IPAM In Cloud</h1>
+<div class=post-meta>
+<span class=post-time> October 13, 2020 </span>
+<div class=post-category>
+<a href=/categories/automation/> automation </a>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/conference/> conference </a>
+<a href=/categories/netdevops/> netdevops </a>
+</div>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#what-is-ipam>What is IPAM?</a></li>
+<li><a href=#the-problem>The Problem</a>
+<ul>
+<li><a href=#boundaries-are-blurred>Boundaries Are Blurred</a></li>
+<li><a href=#inconsistency-in-data-domains>Inconsistency In Data Domains</a></li>
+</ul>
+</li>
+<li><a href=#what-is-our-desired-outcome>What Is Our Desired Outcome?</a></li>
+<li><a href=#why-automate-here>Why Automate Here?</a>
+<ul>
+<li><a href=#why-ansible-and-netbox>Why Ansible and Netbox?</a></li>
+<li><a href=#prerequisites>Prerequisites</a></li>
+</ul>
+</li>
+<li><a href=#what-are-we-automating>What Are We Automating?</a>
+<ul>
+<li><a href=#the-technology>The Technology</a></li>
+<li><a href=#digging-down-into-the-environments>Digging Down Into The Environments</a></li>
+</ul>
+</li>
+<li><a href=#design-drives-automation>Design Drives Automation</a>
+<ul>
+<li><a href=#standard-workflows>Standard Workflows</a></li>
+<li><a href=#a-scalable-tagging-system>A Scalable Tagging System</a></li>
+<li><a href=#touchpoints>Touchpoints</a></li>
+</ul>
+</li>
+<li><a href=#breaking-down-the-logic>Breaking Down The Logic</a>
+<ul>
+<li><a href=#project-structure>Project Structure</a></li>
+<li><a href=#ansible-collections>Ansible Collections</a></li>
+<li><a href=#high-level-plays>High-Level Plays</a></li>
+<li><a href=#functional-roles>Functional Roles</a></li>
+<li><a href=#purpose-built-tasks>Purpose Built Tasks</a></li>
+<li><a href=#the-physical-network>The Physical Network</a></li>
+</ul>
+</li>
+<li><a href=#putting-it-all-together>Putting It All Together</a>
+<ul>
+<li><a href=#job-templates>Job Templates</a></li>
+<li><a href=#workflow-templates>Workflow Templates</a></li>
+<li><a href=#workflow-visualizer>Workflow Visualizer</a></li>
+<li><a href=#using-surveys>Using Surveys</a></li>
+<li><a href=#workflows-in-action>Workflows In Action</a></li>
+<li><a href=#a-little-manual-validation>A Little Manual Validation</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p><img src=/images/01-automating-cloud-ipam/ansible-fest.png alt="AnsibleFest - 2020"></p>
+<p><a href=https://www.ansible.com/ansiblefest>AnsibleFest 2020</a>, like most conferences this year, took place completely virtual. I presented on <em>Automating IPAM In Cloud: Ansible + Netbox</em>. You can find the slides along with the demonstration code in <a href=https://github.com/wcollins/ansible-cloud-ipam>this git repo.</a> In this post, I&rsquo;m going to expand a little further on the content I presented.</p>
+<h2 id=what-is-ipam>What is IPAM?</h2>
+<p><em>IP Address Management (IPAM)</em> is the critical component that organizes your IP addresses and networks in one place. Responsible management of IP addressing drives efficient, repeatable, and reliable network automation. It is also a dependency for many other types of automation. Think of all the things that require IP addresses to communicate?</p>
+<p><img src=/images/01-automating-cloud-ipam/what-is-ipam.png alt="What is IPAM?"></p>
+<h2 id=the-problem>The Problem</h2>
+<p>If you are <em>hybrid multi-cloud</em>, it probably means you share the same <a href=https://en.wikipedia.org/wiki/Private_network>RFC1918</a> space across clouds and traditional networking. If this is the case, it means you probably want to keep track of allocation across <em>VNets</em>, <em>Subnets</em>, and <em>VMs</em>.</p>
+<h3 id=boundaries-are-blurred>Boundaries Are Blurred</h3>
+<ul>
+<li>As Hybrid Multi-Cloud becomes a reality, private IP space becomes shared across cloud(s) and on-premises</li>
+<li>Developers leverage <strong>CI/CD</strong> as they deploy, maintain, and migrate applications in the cloud; network can&rsquo;t keep up</li>
+<li>Some developers do not have a good understanding of how IP addressing works and how to consume it responsibly</li>
+</ul>
+<p><img src=/images/01-automating-cloud-ipam/the-problem.png alt="The Problem"></p>
+<h3 id=inconsistency-in-data-domains>Inconsistency In Data Domains</h3>
+<ul>
+<li>Data required for efficient automation is often dispersed across many tools and platforms</li>
+<li>Frequently, overlap can exist between these tools and platforms for a given data domain</li>
+<li>Tools and platforms may be owned and managed by different teams with different directions</li>
+<li>Good automation is dependent on data accuracy, consistency, and ability to be consumed</li>
+</ul>
+<p><img src=/images/01-automating-cloud-ipam/data-domains.png alt="Data Domains"></p>
+<h2 id=what-is-our-desired-outcome>What Is Our Desired Outcome?</h2>
+<p>Aside from the idea that we want to automate IP address management, the main focus is <strong>user experience</strong>. This encompasses the overall experience for those designing for the future, supporting current, and consuming cloud networking services. The following considerations are critical:</p>
+<ul>
+<li>Minimal human intervention</li>
+<li>Repeatable with other cloud providers</li>
+<li>Compatible across traditional + cloud networking</li>
+<li>End-to-end network automation</li>
+</ul>
+<h2 id=why-automate-here>Why Automate Here?</h2>
+<p>If <a href=https://www.tesla.com/><em>Tesla</em></a> can make self-driving cars and my coffee maker turns itself on in the morning, we can automate <em>IPAM</em> across the <em>hybrid multi-cloud</em> network, right? Also, the cloud demands agility. If you want agility, you need design patterns to build something repeatable against. If you manage IPAM in the cloud with any Microsoft Office tool, you are doing it wrong.</p>
+<h3 id=why-ansible-and-netbox>Why Ansible and Netbox?</h3>
+<p>Leveraging something like <a href=https://ansible.com>Ansible</a> begins to make sense when the goal is automation at scale for networking across multiple vendors and environments. <a href=https://netbox.readthedocs.io/en/stable>Netbox</a> can serve as a Source of Truth intended to represent the <em>desired</em> state of a network versus its <em>operational</em> state. The API is very flexible, and the functionality can drive many automation use cases well beyond IPAM.</p>
+<h3 id=prerequisites>Prerequisites</h3>
+<p>This post will not detail how to deploy Ansible or Netbox as there is plenty of examples out there already. There is excellent documentation for setting up both of these platforms via <a href=https://docker.com>Docker</a>. Instructions for setting up <em>Ansible AWX</em> can be found <a href=https://github.com/ansible/awx>here</a> and <em>Netbox</em> <a href=https://github.com/netbox-community/netbox-docker>here.</a></p>
+<p>To authenticate to an Azure subscription, you will need to create a <a href=https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals>Service Principal</a>. Once a Service Principal is created, you will need to assign a role so that you can access the resources in that subscription. Detailed instructions for completing these steps can be found <a href=https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal>here.</a></p>
+<h2 id=what-are-we-automating>What Are We Automating?</h2>
+<p>Let&rsquo;s examine the cloud environment so we can begin formulating our approach for how we want to automate.</p>
+<h3 id=the-technology>The Technology</h3>
+<p><img src=/images/01-automating-cloud-ipam/the-tech.png alt="The Tech"></p>
+<h3 id=digging-down-into-the-environments>Digging Down Into The Environments</h3>
+<p>In the cloud, you generally have a hierarchy in which logical components exist, which may contain additional logical components. With Azure, for instance, management groups include subscriptions. Subscriptions hold Resource Groups, which include VNets. A VNet may be a shared resource across many apps and services in scope across many teams.</p>
+<p><img src=/images/01-automating-cloud-ipam/cloud-azure-env.png alt="Cloud Environment"></p>
+<p>Colocation Data Centers like <a href=https://www.equinix.com/>Equinix</a> or <a href=https://www.megaport.com/>Megaport</a> are being used more frequently as demand for cloud services increase. We will need to make some changes to a few physical <a href=https://www.cisco.com/c/en/us/products/routers/asr-1002-hx-router/index.html>Cisco ASRs</a>, so packets can route.</p>
+<p><img src=/images/01-automating-cloud-ipam/cloud-env-colo.png alt="Cloud Environment - CoLo"></p>
+<h2 id=design-drives-automation>Design Drives Automation</h2>
+<p>Thinking through a given design is a crucial element for how you approach the automation. If our goal is <em>end-to-end</em> network automation at scale, that means we must automate across multiple vendors and environments.</p>
+<h3 id=standard-workflows>Standard Workflows</h3>
+<p>To automate both the foundational (shared) and service-oriented (app-specific) components, leveraging two distinct workflows makes sense.</p>
+<p><img src=/images/01-automating-cloud-ipam/standard-workflows.png alt="Standard Workflows"></p>
+<h3 id=a-scalable-tagging-system>A Scalable Tagging System</h3>
+<p>If you want to do cloud right, cost governance should be in your considerations. This means a well-designed and consistently applied tagging convention, which compliments lifecycle management, automation, and visibility in reporting. In treating our pets like cattle, we need a <em>source of truth</em> with standardized identification across all networking components.</p>
+<p><img src=/images/01-automating-cloud-ipam/resource-tagging.png alt="Resource Tagging"></p>
+<h3 id=touchpoints>Touchpoints</h3>
+<p>Between both of our workflows, there are numerous touchpoints:</p>
+<ul>
+<li><a href=https://docs.ansible.com/ansible/latest/plugins/connection/network_cli.html>network_cli</a> for traditional networking</li>
+<li><a href=https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure>Ansible Cloud Modules</a> via <a href=https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview>Azure Resource Manager</a></li>
+<li><a href=https://galaxy.ansible.com/netbox/netbox>Netbox Collection</a> leveraging the Netbox API</li>
+</ul>
+<p><img src=/images/01-automating-cloud-ipam/touchpoints.png alt=Touchpoints></p>
+<h2 id=breaking-down-the-logic>Breaking Down The Logic</h2>
+<p>A great benefit of using <a href=https://www.ansible.com/>Ansible</a> is flexibility. This can also cause significant confusion as there are many ways in which we can structure things. It is beneficial to understand the structure, logic flow, and inheritance.</p>
+<h3 id=project-structure>Project Structure</h3>
+<p>Thinking through your project structure can make future work more manageable. The following guide - <a href=https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html>Best Practices - Content Organization</a> in Ansible&rsquo;s documentation is a good starting point. However, this is not a one size fits all scenario, and experimenting, reevaluating, and tweaking will probably be necessary. The following approach has served me well in the past.</p>
+<p><img src=/images/01-automating-cloud-ipam/project-structure.png alt="Project Structure"></p>
+<h3 id=ansible-collections>Ansible Collections</h3>
+<p><a href=https://www.ansible.com/products/content-collections>Ansible Collections</a> are pretty slick. My only recommendation here is, manage your collections with a <em>requirements.yml</em> file. When it comes to testing new versions of a collection, all you need do is create a new git branch, set the new version in your <em>requirements.yml</em> file, and point Tower to this branch. Ansible has documented collections usage pretty thoroughly <a href=https://docs.ansible.com/ansible/latest/user_guide/collections_using.html>here.</a></p>
+<p><a href=https://github.com/wcollins/ansible-cloud-ipam/blob/master/collections/requirements.yml><strong>ansible-cloud-ipam/collections/requirements.yml</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/de3a9667cfba0d4fc371e73288bd04a1.js></script>
+</p>
+<blockquote>
+<p>I would stress never pulling down collections from Galaxy and committing them directly into the source control repository for your project. Friends do not let friends engage in this type of behavior!</p>
+</blockquote>
+<h3 id=high-level-plays>High-Level Plays</h3>
+<p>The playbooks sitting in our root project folder are pretty simple. They are primarily used as the <em>entry</em> point for Ansible and execute based on a specific condition.</p>
+<p><a href=https://github.com/wcollins/ansible-cloud-ipam/blob/master/play.azure_snet_add.yml><strong>ansible-cloud-ipam/play.azure_snet_add.yml</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/dba6213c1ff162da990f2f7c10ad5dcf.js></script>
+</p>
+<h3 id=functional-roles>Functional Roles</h3>
+<p>Roles for this demo are organized by either a given platform or OS type. Each role&rsquo;s main file will include specific <em>tasks</em> to use based on the condition defined in the root level play.</p>
+<p><a href=https://github.com/wcollins/ansible-cloud-ipam/blob/master/roles/netbox/tasks/main.yml><strong>ansible-cloud-ipam/roles/netbox/tasks/main.yml</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/fb49545caa817c1d00381ed8aefea64f.js></script>
+</p>
+<h3 id=purpose-built-tasks>Purpose Built Tasks</h3>
+<p>The actual logic is handled inside a given role&rsquo;s tasks. Each task is purpose-built and does a very intentional thing. Also, the idea is to keep things DRY <em>(Don&rsquo;t repeat yourself)</em> so that we can easily reuse things. This means we don&rsquo;t want to set values here statically. The smaller a thing is, the less it does. If something does less, it makes it easier to repeat.</p>
+<p><a href=https://github.com/wcollins/ansible-cloud-ipam/blob/master/roles/netbox/tasks/task.netbox_reserve_prefix_snet.yml><strong>ansible-cloud-ipam/roles/netbox/tasks/task.netbox_reserve_prefix_snet.yml</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/c81b3ce73d8eb3ce61f38eabd6baeda4.js></script>
+</p>
+<h3 id=the-physical-network>The Physical Network</h3>
+<p>Out of the three platforms we have interacted with here, the <a href=https://www.cisco.com/c/en/us/products/routers/asr-1002-hx-router/index.html>Cisco ASR</a> is the only one that isn&rsquo;t <em>API</em> driven. For automating this beauty, I&rsquo;ll be using the <a href=https://docs.ansible.com/ansible/latest/modules/ios_config_module.html>ios_config</a> module for configuration.</p>
+<p>There are more modern ways to do this today, but this is probably the reality for most in practice. This is a straightforward use case, so this type of execution serves its purpose for a demo&rsquo;s scope. Each time the <em>Service Workflow</em> is run, the subnet it reserves will be appended to a <em>prefix-list</em> living on the <em>ASR</em>.</p>
+<p>In a <em>real world</em> cloud scenario, this <em>prefix-list</em> could be used to identify and filter traffic. It could then be used inside a <em>route-map</em> to enable and enforce policy criteria beyond the <em>routing table</em>. When doing BGP to the cloud, this can be important as you may want to enforce specific policies on specific neighbors to particular clouds.</p>
+<p><a href=https://github.com/wcollins/ansible-cloud-ipam/blob/master/roles/cisco-ios/tasks/task.ios_prefix_list_append.yml><strong>ansible-cloud-ipam/roles/cisco-ios/tasks/task.ios_prefix_list_append.yml</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/1ea22c02e95e8641678ee04b760091ec.js></script>
+</p>
+<h2 id=putting-it-all-together>Putting It All Together</h2>
+<p>Ansible Tower offers two flavors of templates. <a href=https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html>Job Templates</a> are used to execute a single task many times, while <a href=https://docs.ansible.com/ansible-tower/latest/html/userguide/workflow_templates.html>Workflow Templates</a> stitch together multiple <em>Job Templates</em>.</p>
+<p>The value here aims at getting the same outcome that your typical <em>Build/Release</em> pipelines would offer for <em>Infrastructure as Code</em>. When thinking of <em>infrastructure as Code</em>, I generally think <em>immutability</em> and cloud <em>exclusivity</em>.</p>
+<p>In my opinion, this approach lends itself more to remaining flexible and accommodating for a multitude of disparate and traditional infrastructure while also providing the ability to integrate with new technologies.</p>
+<p><img src=/images/01-automating-cloud-ipam/putting-it-together.png alt=Templates></p>
+<h3 id=job-templates>Job Templates</h3>
+<p>In the spirit of building for repeatability, I created <em>Job Templates</em> for each unique task. This allows me to reuse them over time in new <em>Workflow Templates</em> as new use cases present themselves.</p>
+<p><img src=/images/01-automating-cloud-ipam/create-job-template.gif alt="Create Job Template"></p>
+<h3 id=workflow-templates>Workflow Templates</h3>
+<p>I then assembled my two <em>Workflow Templates</em> outlined above. The <em>Base Workflow</em> in practice would be run far less frequently than the <em>Service Workflow</em>.</p>
+<h3 id=workflow-visualizer>Workflow Visualizer</h3>
+<p>Stitching your workflow together is pretty simple with Tower&rsquo;s <em>workflow visualizer</em>. Once you create a blanket workflow, you can add and arrange jobs.</p>
+<p><img src=/images/01-automating-cloud-ipam/workflow-visualizer.gif alt="Workflow Visualizer"></p>
+<h3 id=using-surveys>Using Surveys</h3>
+<p><a href=https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys>Surveys</a> are a great way to populate variables at runtime interactively. Once a <em>source of truth</em> in a given data domain is populated, and the logic is more mature, this will probably be used less.</p>
+<p><img src=/images/01-automating-cloud-ipam/using-surveys.gif alt="Using Surveys"></p>
+<h3 id=workflows-in-action>Workflows In Action</h3>
+<p>Now that our workflow is populated with the right variables let&rsquo;s take it for a spin!</p>
+<p><img src=/images/01-automating-cloud-ipam/running-workflows.gif alt="Running Workflows"></p>
+<h3 id=a-little-manual-validation>A Little Manual Validation</h3>
+<p>Purely for the sake of delightful visuals, let&rsquo;s validate a few things.</p>
+<p><strong>Netbox Prefix Reservation:</strong>
+We can see here that the next available prefix was reserved, configuration criteria are correct, and our enforced tags are in place.</p>
+<p><img src=/images/01-automating-cloud-ipam/validate-netbox.gif alt="Netbox Validation"></p>
+<p><strong>Cisco ASR 1002-HX Configuration:</strong>
+The prefix reserved above has now been added to the <em>cloud-allowed-prefixes</em> list on our router. If the list does not exist, the job will create it. From there, any new prefixes reserved will then be appended.</p>
+<p><img src=/images/01-automating-cloud-ipam/validate-prefix.gif alt="Cisco ASR 1002-HX Validation"></p>
+<h2 id=conclusion>Conclusion</h2>
+<p>Building a logical way for developers to consume <em>IPAM</em> at the speed of cloud is <strong><em>WINNING!</em></strong> Remember, go <strong>fast</strong>, but go <strong>responsibly!</strong></p>
+<p><img src=/images/01-automating-cloud-ipam/go-fast.gif alt="Go Fast!"></p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/ansible/>ansible</a>
+<a href=/tags/ansiblefest/>ansiblefest</a>
+<a href=/tags/azure/>azure</a>
+<a href=/tags/ipam/>ipam</a>
+<a href=/tags/netbox/>netbox</a>
+<a href=/tags/cisco-asr/>cisco asr</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2021/cloud-security-and-azure-private-link/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Cloud Security And Azure Private Link</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2020/alkira-multicloud-networking/>
+<span class="next-text nav-default">Multi-Cloud Networking With Alkira</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a>
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2020 -
+2021
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-164916874-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

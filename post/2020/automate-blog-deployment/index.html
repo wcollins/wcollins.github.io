@@ -1,0 +1,269 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Automating Blog Releases: Hugo + GitHub Actions - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="A lot of the work I do professionally involves transforming traditional network culture, practices, and technology. Just as DevOps transformed application delivery, NetDevOps is here to make sure the network can keep up. This post will cover how I deploy this blog with Hugo to GitHub Pages using GitHub Actions to completely automate the workflow. This is very similar to how I approached modernizing network documentation for my current employer. Listen to Day Two Cloud Podcast as I talk through this transformation in more detail.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2020/automate-blog-deployment/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Automating Blog Releases: Hugo + GitHub Actions">
+<meta property="og:description" content="A lot of the work I do professionally involves transforming traditional network culture, practices, and technology. Just as DevOps transformed application delivery, NetDevOps is here to make sure the network can keep up. This post will cover how I deploy this blog with Hugo to GitHub Pages using GitHub Actions to completely automate the workflow. This is very similar to how I approached modernizing network documentation for my current employer. Listen to Day Two Cloud Podcast as I talk through this transformation in more detail.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2020/automate-blog-deployment/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2020-06-21T17:14:44-04:00">
+<meta property="article:modified_time" content="2020-06-21T17:14:44-04:00">
+<meta itemprop=name content="Automating Blog Releases: Hugo + GitHub Actions">
+<meta itemprop=description content="A lot of the work I do professionally involves transforming traditional network culture, practices, and technology. Just as DevOps transformed application delivery, NetDevOps is here to make sure the network can keep up. This post will cover how I deploy this blog with Hugo to GitHub Pages using GitHub Actions to completely automate the workflow. This is very similar to how I approached modernizing network documentation for my current employer. Listen to Day Two Cloud Podcast as I talk through this transformation in more detail."><meta itemprop=datePublished content="2020-06-21T17:14:44-04:00">
+<meta itemprop=dateModified content="2020-06-21T17:14:44-04:00">
+<meta itemprop=wordCount content="978">
+<meta itemprop=keywords content="cicd,git,github actions,github pages,hugo,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Automating Blog Releases: Hugo + GitHub Actions">
+<meta name=twitter:description content="A lot of the work I do professionally involves transforming traditional network culture, practices, and technology. Just as DevOps transformed application delivery, NetDevOps is here to make sure the network can keep up. This post will cover how I deploy this blog with Hugo to GitHub Pages using GitHub Actions to completely automate the workflow. This is very similar to how I approached modernizing network documentation for my current employer. Listen to Day Two Cloud Podcast as I talk through this transformation in more detail."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Automating Blog Releases: Hugo + GitHub Actions</h1>
+<div class=post-meta>
+<span class=post-time> June 21, 2020 </span>
+<div class=post-category>
+<a href=/categories/automation/> automation </a>
+<a href=/categories/blog/> blog </a>
+<a href=/categories/documentation/> documentation </a>
+<a href=/categories/netdevops/> netdevops </a>
+<a href=/categories/tools/> tools </a>
+</div>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#why-docs-as-code>Why Docs-as-Code?</a></li>
+<li><a href=#static-site-generation>Static Site Generation</a></li>
+<li><a href=#hugo---static-site-generator>Hugo - Static Site Generator</a></li>
+<li><a href=#github---source--build--release>GitHub - Source + Build + Release</a>
+<ul>
+<li><a href=#github-pages>GitHub Pages</a></li>
+<li><a href=#github-actions>GitHub Actions</a></li>
+</ul>
+</li>
+<li><a href=#putting-it-together>Putting it Together</a>
+<ul>
+<li><a href=#setup-repositories>Setup Repositories</a></li>
+<li><a href=#generate-ssh-keys>Generate SSH Keys</a></li>
+<li><a href=#add-source-repo---secret>Add Source Repo - Secret</a></li>
+<li><a href=#add-destination-repo---deploy-key>Add Destination Repo - Deploy Key</a></li>
+<li><a href=#workflow-overview>Workflow Overview</a></li>
+<li><a href=#workflow-file>Workflow File</a></li>
+<li><a href=#validation>Validation</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>A lot of the work I do professionally involves transforming <em>traditional</em> network culture, practices, and technology. Just as <a href=https://www.atlassian.com/devops>DevOps</a> transformed application delivery, <a href=https://cumulusnetworks.com/blog/netdevops-meaning/>NetDevOps</a> is here to make sure the network can keep up. This post will cover how I deploy this blog with <a href=https://gohugo.io/>Hugo</a> to <a href=https://pages.github.com/>GitHub Pages</a> using <a href=https://github.com/features/actions>GitHub Actions</a> to completely automate the workflow. This is very similar to how I approached modernizing network documentation for my current employer. Listen to <a href=https://packetpushers.net/podcast/day-two-cloud-034-everything-as-code-including-documentation/>Day Two Cloud Podcast</a> as I talk through this transformation in more detail.</p>
+<h2 id=why-docs-as-code>Why Docs-as-Code?</h2>
+<p><a href=https://www.writethedocs.org/guide/docs-as-code/>Docs-as-Code</a> refers to the philosophy that you should be writing documentation with the same tools as code. It is also an easy and non-intrusive way to get traditional engineers started using tools like <a href=https://git-scm.com/>git</a> which have practical use cases far beyond documentation. Some of the benefits include:</p>
+<ul>
+<li>Version Control (Git)</li>
+<li>Incorporating Automation (CICD)</li>
+<li>Ensure Docs evolve with code (Linked work items)</li>
+<li>Adopt <em>DevOps</em> practices in network engineering (Priceless)</li>
+</ul>
+<h2 id=static-site-generation>Static Site Generation</h2>
+<p>Static sites are making a comeback! In today&rsquo;s world, speed and security are kind of a big deal. The more complex something is, the more difficult it is to secure. Static site generators are becoming popular as they bridge the gap between static sites of old, and dynamic sites of today. Benefits of static webpages include:</p>
+<ul>
+<li>Cost (Fast delivery, low up front cost)</li>
+<li>Simplicity (Hosting, scaling, and automation)</li>
+<li>Speed (No backend database calls or dynamic content generation)</li>
+<li>Security (Less exposure to the internet)</li>
+</ul>
+<blockquote>
+<p>A request can only be made for files that contain <em>HTML</em>, <em>CSS</em>, <em>JavaScript</em>, <em>Images</em>, <em>Audio</em>, or <em>Video</em>. Since there is no database to breach and no server-side platform or CMS, the threat vector doesn&rsquo;t exist to maliciously control an application or exploit a database.</p>
+</blockquote>
+<h2 id=hugo---static-site-generator>Hugo - Static Site Generator</h2>
+<p><img src=/images/03-automate-blog-deployment/about-hugo.png alt="About Hugo"></p>
+<p><a href=https://gohugo.io/>Hugo</a> is written in <a href=https://golang.org/>GoLang</a> and claims to be the world&rsquo;s fastest framework for building websites. At <strong><em>&lt;1 ms</em></strong> per page, the average site builds in less than a second. It doesn&rsquo;t take many cycles to get acclimated with writing in <a href=https://www.markdownguide.org/>Markdown</a>, and <a href=https://gohugo.io/content-management/shortcodes/>Hugo&rsquo;s Shortcodes</a> help you extend functionality to new heights.</p>
+<h2 id=github---source--build--release>GitHub - Source + Build + Release</h2>
+<p><img src=/images/03-automate-blog-deployment/about-github.png alt="About GitHub"></p>
+<p>Since everyone knows what <a href=https://github.com/>GitHub</a> is and are probably already experts at using <strong><em>git</em></strong>, this doesn&rsquo;t require much explanation. If you are not an expert, then have a look <a href=https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow>here</a> to educate yourself. You may not know as much about GitHub Pages and GitHub Actions.</p>
+<h3 id=github-pages>GitHub Pages</h3>
+<p><a href=https://pages.github.com/>GitHub Pages</a> allows you to host a webpage directly from your GitHub repository. This is a great way to showcase your blog, portfolio, project, documentation, or anything else you are interested in sharing with the world. With no databases to setup and no servers to build, you can focus more on content and less on management.</p>
+<p>All your host provider has to do is serve static assets. Since they don&rsquo;t need to support a specific programming language or framework, this makes it simple to host, manage, and even migrate to another hosting provider. Professionally, I am using <a href=https://docs.microsoft.com/en-us/azure/cloudfoundry/cloudfoundry-get-started>Pivotal Cloud Foundry on Azure</a> to host a <strong>NetDevOps</strong> DocSite.</p>
+<h3 id=github-actions>GitHub Actions</h3>
+<p><img src=/images/03-automate-blog-deployment/about-actions.png alt="About Actions"></p>
+<p><a href=https://github.com/features/actions>GitHub Actions</a> enable you to automate your workflow. I have been using <a href=https://azure.microsoft.com/en-us/services/devops/pipelines/>Azure Pipelines</a> quite a bit recently for <a href=https://opensource.com/article/18/8/what-cicd>continuous integration and continuous delivery (CI/CD) </a>. With the exception of a few things, GitHub Actions worked in a very similar way and is a breeze to setup. I would imagine GitHub Actions will be leveraged largely by the open source community as GitHub is geared for open source projects.</p>
+<h2 id=putting-it-together>Putting it Together</h2>
+<p>There are a few different ways you can deploy a static site using <a href=https://gohugo.io/>Hugo</a> on <a href=https://pages.github.com>GitHub Pages</a>. I like the idea of keeping my source code in a dedicated repository and generating the contents of the site to an external repository. For me, this seems much cleaner than building the content inside the same repository and lends itself more to to a logical branching strategy.</p>
+<h3 id=setup-repositories>Setup Repositories</h3>
+<ul>
+<li><strong>User/Org</strong> or <strong>Project</strong> repo setup - <a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/>Instructions here</a></li>
+<li>Hugo source repo setup (This repo can be private, and the naming convention doesn&rsquo;t matter)</li>
+<li>Hugo site committed to source repo (To <em>develop</em> or other integration branch)</li>
+</ul>
+<h3 id=generate-ssh-keys>Generate SSH Keys</h3>
+<p>To enable the ability to push from source to destination repo, we need to generate SSH keys.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Private key added as a secret in Hugo source repo</span>
+<span class=c1># Public key added as deploy key in GitHub Pages repo</span>
+ssh-keygen -t rsa -C <span class=s2>&#34;hugo_deploy&#34;</span> -b <span class=m>4096</span> -f ~/.ssh/hugo_deploy</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id=add-source-repo---secret>Add Source Repo - Secret</h3>
+<p>Navigate to settings on the source repo and create a new secret with the name <strong><em>ACTIONS_DEPLOY_KEY</em></strong>. Use your private key contents as the <em>Value</em> for the secret.</p>
+<p><img src=/images/03-automate-blog-deployment/source-repo.png alt="Source Repo"></p>
+<h3 id=add-destination-repo---deploy-key>Add Destination Repo - Deploy Key</h3>
+<p>On the GitHub Pages repo, we need to create a Deploy Key. The naming convention doesn&rsquo;t matter, but should be descriptive like - <strong><em>Deploy Key Pub</em></strong>. Use the public key contents as the <em>Key</em>.</p>
+<p><img src=/images/03-automate-blog-deployment/dest-repo.png alt="Destination Repo"></p>
+<h3 id=workflow-overview>Workflow Overview</h3>
+<p>Since I am the only one contributing to <a href=https://wcollins.github.io>this blog</a>, the branching is pretty simple. I create a branch for a given post and merge back with <strong>develop</strong> (integration) branch. Once I am ready to release a new post, I create a pull request and merge back with <strong>master</strong>. The workflow looks something like this:</p>
+<p><img src=/images/03-automate-blog-deployment/blog-workflow.png alt="Blog Workflow"></p>
+<h3 id=workflow-file>Workflow File</h3>
+<p>Add <strong><em>.github/workflows/deploy_hugo_site.yml</em></strong> to the Hugo source repo. Substitute <em>username/destination-repo</em> with the appropriate GitHub Pages / Destination repo.</p>
+<script type=application/javascript src=https://gist.github.com/wcollins/efc411f822a23c5ecb175210b4cb70b9.js></script>
+<h3 id=validation>Validation</h3>
+<p>Once the code is committed and the workflow gets triggered, you can track the progress under <strong>Actions</strong> in the hugo source repo. The first time a site is deployed to GitHub Pages, you will have to wait a few minutes for it to be reachable. Subsequent releases should update within a few seconds.</p>
+<h2 id=conclusion>Conclusion</h2>
+<p>If you want to check out some popular alternatives to <a href=https://gohugo.io/>Hugo</a>, check out <a href=https://jekyllrb.com/>Jekyll</a> and <a href=https://www.gatsbyjs.org/>Gatsby</a>. In integrating these types of tools into a technical workflow, you are not force-fitting <em>writer-centric</em> tools onto engineers but rather fitting the documentation into <em>developer-centric</em> tooling.</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/cicd/>cicd</a>
+<a href=/tags/git/>git</a>
+<a href=/tags/github-actions/>github actions</a>
+<a href=/tags/github-pages/>github pages</a>
+<a href=/tags/hugo/>hugo</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2020/alkira-multicloud-networking/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Multi-Cloud Networking With Alkira</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2020/setup-awx-on-debian/>
+<span class="next-text nav-default">Setting Up Ansible (AWX) On Debian</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a>
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2020 -
+2021
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-164916874-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>
