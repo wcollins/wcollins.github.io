@@ -141,13 +141,13 @@
 <h3 id=segmentation>Segmentation</h3>
 <p><a href=https://registry.terraform.io/namespaces/alkiranet>Alkira&rsquo;s Terraform Provider</a> makes it easy to build networking the <strong>DevOps</strong> way. The following snippet creates our <strong>segment</strong> and <strong>groups</strong> used for <em>macro</em> and <em>micro</em> segmentation.</p>
 <p><strong>alkira_segments.tf</strong>
-<script type=application/javascript src=https://gist.github.com/wcollins/d155be8ab086c9169a2de0a633a0c17a.js></script>
+<script type=application/javascript src=https://gist.github.com/wcollins/b8385910021b9e407cf428453e8ad5de.js></script>
 </p>
 <h3 id=internet-egress>Internet Egress</h3>
 <p>The following code will provision an <strong>Internet Connector</strong> with <a href=https://docs.paloaltonetworks.com/vm-series/9-1/vm-series-deployment/about-the-vm-series-firewall.html>VM-Series Firewalls</a>. These scale to real-time capacity demand while symmetrically steering application traffic using intent-based policies.</p>
 <p><strong>Internet</strong>, <strong>Intranet</strong>, and <strong>Private-Spoke</strong> <a href=https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-web-interface-help/network/network-zones/security-zone-overview.html>security zones</a> will be provisioned on the Firewalls with each zone mapping back to the corresponding <strong>Alkira Groups</strong> which provide the baseline for segmentation and policy</p>
 <p><strong>alkira_internet.tf</strong>
-<script type=application/javascript src=https://gist.github.com/wcollins/658f8f0b3307e884bb6306437aadb21d.js></script>
+<script type=application/javascript src=https://gist.github.com/wcollins/35cd6b69cafc3e556245b935e4f46496.js></script>
 </p>
 <h3 id=provision-on-pull-request>Provision On Pull Request</h3>
 <p>I&rsquo;m a big fan of <a href=https://www.terraform.io/cloud>Terraform Cloud</a>. For this example, I have my infrastructure committed to <a href=https://github.com>Github</a> with Terraform Cloud runs triggered automatically as changes get <strong>merged</strong> in version control.</p>
