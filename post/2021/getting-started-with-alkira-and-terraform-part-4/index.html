@@ -1,0 +1,273 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Getting Started With Alkira And Terraform (Part 4) - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&amp;rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
+ Your browser does not support video.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-4/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Getting Started With Alkira And Terraform (Part 4)">
+<meta property="og:description" content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
+ Your browser does not support video.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-4/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-10-27T15:10:56-04:00">
+<meta property="article:modified_time" content="2021-10-27T15:10:56-04:00">
+<meta itemprop=name content="Getting Started With Alkira And Terraform (Part 4)">
+<meta itemprop=description content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
+ Your browser does not support video."><meta itemprop=datePublished content="2021-10-27T15:10:56-04:00">
+<meta itemprop=dateModified content="2021-10-27T15:10:56-04:00">
+<meta itemprop=wordCount content="505">
+<meta itemprop=keywords content="alkira,aws,azure,gcp,ipsec,immutability,infrastructure-as-code,terraform,terraform cloud,terraform,segmentation,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Getting Started With Alkira And Terraform (Part 4)">
+<meta name=twitter:description content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
+ Your browser does not support video."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Getting Started With Alkira And Terraform (Part 4)</h1>
+<div class=post-meta>
+<span class=post-time> October 27, 2021 </span>
+<div class=post-category>
+<a href=/categories/automation/> automation </a>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/cloud-networking/> cloud-networking </a>
+<a href=/categories/cloud-security/> cloud-security </a>
+<a href=/categories/multi-cloud/> multi-cloud </a>
+<a href=/categories/netsecops/> netsecops </a>
+<a href=/categories/sd-wan/> sd-wan </a>
+<a href=/categories/tools/> tools </a>
+</div>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#scenario>Scenario</a>
+<ul>
+<li><a href=#policy-requirements>Policy Requirements</a></li>
+<li><a href=#without-terraform>Without Terraform</a></li>
+</ul>
+</li>
+<li><a href=#building-policies-with-terraform>Building Policies With Terraform</a>
+<ul>
+<li><a href=#resources>Resources</a></li>
+<li><a href=#prefix-lists>Prefix Lists</a></li>
+<li><a href=#rules>Rules</a></li>
+<li><a href=#policies>Policies</a></li>
+</ul>
+</li>
+<li><a href=#validation>Validation</a></li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>In <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-1/>Part 1</a>, we laid out our foundation. In <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-2/>Part 2</a> and <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-3/>Part 3</a> we connected various networks <em>(both cloud and on-premises)</em> and provisioned <a href=https://docs.paloaltonetworks.com/vm-series/9-1/vm-series-deployment/about-the-vm-series-firewall.html>NGFWs</a> that scale to real-time capacity. By default, networks connected to our <em>corporate</em> segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the <em>groups</em> we created to produce logical <em>micro-segmentation</em> that mirror a few <em>real-world</em> use cases.</p>
+<video autoplay loop muted playsinline aria-label style=width:100%;height:auto>
+<source src=/images/2021/getting-started-with-alkira-and-terraform-part-4/intro.mp4 type=video/mp4>
+<p> Your browser does not support video. </p>
+</video>
+<h2 id=scenario>Scenario</h2>
+<p>Before moving on to policy requirements, let&rsquo;s recap the infrastructure provisioned in the previous posts:</p>
+<ul>
+<li><strong>DEV</strong>, <strong>TEST</strong>, <strong>STAGE</strong>, and <strong>PROD</strong> networks in AWS and Azure for <em>cloud native</em> applications</li>
+<li>Additional <strong>MIGRATION</strong> network in Azure for application migrations from on-premises</li>
+<li><strong>DEV</strong>, <strong>TEST</strong>, and <strong>STAGE</strong> networks in GCP for a new product that is not yet in production</li>
+<li><strong>Alkira Groups</strong> non-prod, prod, migration, internet, ipsec, and sdwan for <em>micro-segmentation</em></li>
+<li><strong>Internet Exit</strong> for users, sites, and clouds along with elastically scaled <strong>Palo Alto NGFWs</strong></li>
+</ul>
+<h3 id=policy-requirements>Policy Requirements</h3>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-4/requirements.png alt=Requirements></p>
+<blockquote>
+<p>I wanted these requirements to be grounded in reality. Segmenting application environments, isolating migration workloads, and selectively steering traffic to different services can be challenging when considering <em>Hybrid Multi-Cloud</em>. Defining these policies in code is a big step towards integrating <em>NetSecOps</em> into network and security workflows.</p>
+</blockquote>
+<h3 id=without-terraform>Without Terraform</h3>
+<p><a href=https://alkira.com>Alkira</a> makes it simple to define policies manually via the portal. A great benefit of doing it this way is to visualize the outcome of a given policy in <em>real-time</em>. To get a better idea of the process, let&rsquo;s create a sample policy to allow communication from our <a href=https://www.cisco.com/c/en/us/solutions/enterprise-networks/sd-wan/index.html>Cisco SD-WAN</a> mesh to the <a href=https://azure.microsoft.com/en-us/>Azure</a> migration zone:</p>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-4/portal-policy.gif alt="Portal Policy"></p>
+<h2 id=building-policies-with-terraform>Building Policies With Terraform</h2>
+<p>Alkira uses a flexible policy-driven architecture for controlling traffic and enabling service insertion. These policies can be built and enforced without knowing the <em>IP addresses</em> or <em>subnets</em> that represent sites, cloud networks, or applications.</p>
+<h3 id=resources>Resources</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/policy_prefix_list>alkira_policy_prefix_list</a></td>
+<td>resource</td>
+<td>Manage Prefix Lists</td>
+</tr>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/policy_rule>alkira_policy_rule</a></td>
+<td>resource</td>
+<td>Manage Rules</td>
+</tr>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/policy>alkira_policy</a></td>
+<td>resource</td>
+<td>Manage Policies</td>
+</tr>
+</tbody>
+</table>
+<h3 id=prefix-lists>Prefix Lists</h3>
+<p>Although defining <em>subnets</em> as resources isn&rsquo;t required, it can make sense to categorize larger blocks of space together, like <a href=https://datatracker.ietf.org/doc/html/rfc1918>RFC1918</a> private address space.</p>
+<p><strong>alkira_policy_prefix_list.tf</strong>
+<script type=application/javascript src=https://gist.github.com/wcollins/7fe696704ad617e00f4d7833b5afcaf4.js></script>
+</p>
+<h3 id=rules>Rules</h3>
+<p>Custom rules can be defined to control routing. For increased flexibility, rules allow matching on <em>community</em>, <em>extended community</em>, <em>as path</em>, and <em>prefix list</em>. You can also do <em>service insertion</em> by using <em>service type</em> to steer traffic through a given service. <a href=https://docs.paloaltonetworks.com/vm-series.html>Palo Alto</a>, <a href=https://www.checkpoint.com/quantum/virtual-systems/>CheckPoint</a>, and <a href=https://www.zscaler.com/products/zscaler-internet-access>ZScaler</a> are supported services today.</p>
+<p><strong>alkira_policy_rule.tf</strong>
+<script type=application/javascript src=https://gist.github.com/wcollins/f5048f1525e5cb8f492e9a4f31505192.js></script>
+</p>
+<h3 id=policies>Policies</h3>
+<p>Policies contain a <em>rule-list</em> and get applied to connectors. Once an enforcement scaffolding is in place, newly added connectors will automatically inherit the intended policy defined with infrastructure-as-code.</p>
+<p><strong>alkira_policy.tf</strong>
+<script type=application/javascript src=https://gist.github.com/wcollins/e6fc987259805b3538232aa064fa9352.js></script>
+</p>
+<h2 id=validation>Validation</h2>
+<p>I used <a href=https://www.terraform.io/cloud>Terraform Cloud</a> for provisioning. From the <em>design canvas</em>, we can validate that each policy matches our original intent.</p>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-4/validation.gif alt=Validation></p>
+<h2 id=conclusion>Conclusion</h2>
+<p>Automation is now a business imperative that underpins elasticity and intersects directly with business outcomes. In this blog series, we deployed a production-grade network spanning multiple clouds and sites with unified segmentation and security services, all via code and delivered using <em>CI/CD</em>. Keep a lookout for new content as I explore integrating <a href=https://alkira.com>Alkira</a> with other tools and services!</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/alkira/>alkira</a>
+<a href=/tags/aws/>aws</a>
+<a href=/tags/azure/>azure</a>
+<a href=/tags/gcp/>gcp</a>
+<a href=/tags/ipsec/>ipsec</a>
+<a href=/tags/immutability/>immutability</a>
+<a href=/tags/infrastructure-as-code/>infrastructure-as-code</a>
+<a href=/tags/terraform/>terraform</a>
+<a href=/tags/terraform-cloud/>terraform cloud</a>
+<a href=/tags/terraform/>terraform</a>
+<a href=/tags/segmentation/>segmentation</a>
+</div>
+<nav class=post-nav>
+<a class=next href=/post/2021/getting-started-with-alkira-and-terraform-part-3/>
+<span class="next-text nav-default">Getting Started With Alkira And Terraform (Part 3)</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a>
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2020 -
+2021
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-164916874-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>
