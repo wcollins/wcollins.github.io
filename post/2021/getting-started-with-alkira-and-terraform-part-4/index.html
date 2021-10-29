@@ -34,7 +34,7 @@
 <meta itemprop=description content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
  Your browser does not support video."><meta itemprop=datePublished content="2021-10-27T15:10:56-04:00">
 <meta itemprop=dateModified content="2021-10-27T15:10:56-04:00">
-<meta itemprop=wordCount content="533">
+<meta itemprop=wordCount content="611">
 <meta itemprop=keywords content="alkira,aws,azure,gcp,ipsec,immutability,infrastructure-as-code,terraform,terraform cloud,terraform,segmentation,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="Getting Started With Alkira And Terraform (Part 4)">
 <meta name=twitter:description content="In Part 1, we laid out our foundation. In Part 2 and Part 3 we connected various networks (both cloud and on-premises) and provisioned NGFWs that scale to real-time capacity. By default, networks connected to our corporate segment have full-mesh connectivity to each other. Let&rsquo;s build some policies in code that can work with the groups we created to produce logical micro-segmentation that mirror a few real-world use cases.
@@ -106,6 +106,8 @@
 <a href=/categories/sd-wan/> sd-wan </a>
 <a href=/categories/tools/> tools </a>
 </div>
+<span class=more-meta> 611 words </span>
+<span class=more-meta> 3 mins read </span>
 </div>
 </header>
 <div class=post-toc id=post-toc>
@@ -180,6 +182,11 @@
 <td>Manage Rules</td>
 </tr>
 <tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/policy_rule_list>alkira_policy_rule_list</a></td>
+<td>resource</td>
+<td>Manage Rule Lists</td>
+</tr>
+<tr>
 <td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/policy>alkira_policy</a></td>
 <td>resource</td>
 <td>Manage Policies</td>
@@ -196,6 +203,9 @@
 <p><strong>alkira_policy_rule.tf</strong>
 <script type=application/javascript src=https://gist.github.com/wcollins/f5048f1525e5cb8f492e9a4f31505192.js></script>
 </p>
+<blockquote>
+<p>Selectively steering traffic to services like <em>NGFWs</em> in hybrid multi-cloud networks comes with many design considerations and challenges. In practice, this can often lead to <em>physical</em> and <em>virtual</em> firewall sprawl across CoLos, Public Clouds, and Sites. A great benefit of using Alkira is significantly limiting this firewall instance sprawl to only what is needed to meet capacity demands. Also, having a simple way of steering traffic as required saves time and simplifies design.</p>
+</blockquote>
 <h3 id=policies>Policies</h3>
 <p>Policies contain a <em>rule-list</em> and get applied to connectors. Once an enforcement scaffolding is in place, newly added connectors will automatically inherit the intended policy defined with infrastructure-as-code.</p>
 <p><strong>alkira_policy.tf</strong>
