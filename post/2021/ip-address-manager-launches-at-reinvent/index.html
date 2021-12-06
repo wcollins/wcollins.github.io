@@ -31,7 +31,7 @@
 <meta itemprop=name content="IP Address Manager Launches at re:Invent">
 <meta itemprop=description content="Some say that IP Address management (IPAM) doesn&rsquo;t matter in the cloud. IPAM is something that grumpy legacy infrastructure folks used to do in the days of old, and it isn&rsquo;t necessary anymore. Well, anyone that has adopted multi-cloud or even single cloud with some hybrid sprinkled in knows what can go wrong with this line of thinking. IP Address Manager (IPAM) for VPC was one of the shiny new features announced this year at re:Invent."><meta itemprop=datePublished content="2021-12-05T10:08:24-05:00">
 <meta itemprop=dateModified content="2021-12-05T10:08:24-05:00">
-<meta itemprop=wordCount content="576">
+<meta itemprop=wordCount content="574">
 <meta itemprop=keywords content="aws,re:invent,aws vpc ip address manager,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="IP Address Manager Launches at re:Invent">
 <meta name=twitter:description content="Some say that IP Address management (IPAM) doesn&rsquo;t matter in the cloud. IPAM is something that grumpy legacy infrastructure folks used to do in the days of old, and it isn&rsquo;t necessary anymore. Well, anyone that has adopted multi-cloud or even single cloud with some hybrid sprinkled in knows what can go wrong with this line of thinking. IP Address Manager (IPAM) for VPC was one of the shiny new features announced this year at re:Invent."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -96,7 +96,7 @@
 <a href=/categories/cloud/> cloud </a>
 <a href=/categories/tools/> tools </a>
 </div>
-<span class=more-meta> 576 words </span>
+<span class=more-meta> 574 words </span>
 <span class=more-meta> 3 mins read </span>
 </div>
 </header>
@@ -115,8 +115,8 @@
 <li><a href=#hotel-california>Hotel California</a>
 <ul>
 <li><a href=#is-it-still-allocated>Is It Still Allocated?</a></li>
-<li><a href=#lets-start-from-scratch>Let&rsquo;s Start From Scratch</a></li>
-<li><a href=#lets-start-from-scratch-one-layer-higher>Let&rsquo;s Start From Scratch (one layer higher)</a></li>
+<li><a href=#starting-from-scratch>Starting From Scratch</a></li>
+<li><a href=#starting-from-scratch-one-layer-higher>Starting From Scratch (one layer higher)</a></li>
 </ul>
 </li>
 <li><a href=#conclusion>Conclusion</a></li>
@@ -144,13 +144,13 @@
 <h3 id=is-it-still-allocated>Is It Still Allocated?</h3>
 <p>Since it says the prefix is still allocated to a resource, let&rsquo;s follow the resource ID to see where it takes us. Also, I did sleep on this. After <em>24-hours</em>, the resource ID link to my dearly beloved and no-longer provisioned VPC is still listed under allocations.</p>
 <p><img src=/images/2021/ip-address-manager-launches-at-reinvent/resource-not-found.gif alt="Resource Not Found"></p>
-<h3 id=lets-start-from-scratch>Let&rsquo;s Start From Scratch</h3>
+<h3 id=starting-from-scratch>Starting From Scratch</h3>
 <p>Did I do something wrong here? Maybe I did. Since you can&rsquo;t just <em>leave</em> the Hotel California, let&rsquo;s nuke the pool and start from scratch, except&mldr;<strong>&ldquo;The specified action is not valid. There are one or more pool cidrs provisioned in the pool&rdquo;</strong>.</p>
 <p><img src=/images/2021/ip-address-manager-launches-at-reinvent/delete-pool.gif alt="Delete Pool"></p>
 <div class="admonition info"><p class=admonition-title>Thoughts</p>
 <p>It will not let me remove the pool because <em>one or more</em> pool cidrs still exist. The problem here is, since there is a prefix allocated from the pool CIDR, it fails to de-provision. <strong>&ldquo;Relax, said the IPAM we are programmed to receive. You can check out any time you like, but you can never leave!"</strong></p>
 </div>
-<h3 id=lets-start-from-scratch-one-layer-higher>Let&rsquo;s Start From Scratch (one layer higher)</h3>
+<h3 id=starting-from-scratch-one-layer-higher>Starting From Scratch (one layer higher)</h3>
 <p>The next layer up would be deleting the <em>IPAM</em> instance itself. Since the last two attempts didn&rsquo;t work, and since this is <em>Hotel California IPAM</em>, my optimism is waning. Let&rsquo;s give it a shot anyway:</p>
 <p><img src=/images/2021/ip-address-manager-launches-at-reinvent/delete-ipam.gif alt="Delete IPAM"></p>
 <h2 id=conclusion>Conclusion</h2>
