@@ -31,7 +31,7 @@
 <meta itemprop=name content="Importing Infrastructure With Azure Terrafy">
 <meta itemprop=description content="Anyone that has worked in tech knows that building greenfield is much easier than dragging along brownfield environments through a roller-coaster they aren&rsquo;t ready for. Tools like Terraform make infrastructure-as-code a breeze, but what about all that infrastructure you already have provisioned? April Edwards, Cloud Advocate at Microsoft, recently posted a blog about Azure Terrafy, a new tool in preview which aims to simplify the process. You can find the original blog here."><meta itemprop=datePublished content="2022-05-16T08:01:11-04:00">
 <meta itemprop=dateModified content="2022-05-16T08:01:11-04:00">
-<meta itemprop=wordCount content="581">
+<meta itemprop=wordCount content="582">
 <meta itemprop=keywords content="azure,infrastructure-as-code,terraform,terrafy,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="Importing Infrastructure With Azure Terrafy">
 <meta name=twitter:description content="Anyone that has worked in tech knows that building greenfield is much easier than dragging along brownfield environments through a roller-coaster they aren&rsquo;t ready for. Tools like Terraform make infrastructure-as-code a breeze, but what about all that infrastructure you already have provisioned? April Edwards, Cloud Advocate at Microsoft, recently posted a blog about Azure Terrafy, a new tool in preview which aims to simplify the process. You can find the original blog here."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -97,7 +97,7 @@
 <a href=/categories/cloud/> cloud </a>
 <a href=/categories/tools/> tools </a>
 </div>
-<span class=more-meta> 581 words </span>
+<span class=more-meta> 582 words </span>
 <span class=more-meta> 3 mins read </span>
 </div>
 </header>
@@ -151,7 +151,9 @@
 <p>This is a great tool, especially in learning and adoption of <em>infrastructure-as-code</em>. The <em>import</em> process is scoped at the <a href=https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview>resource group</a> level, which makes a lot of sense. <a href="https://docs.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide#subscriptions">Subscriptions</a> would be the next level up, and that might get too messy. When <em>Terrafy</em> generates the <em>infra-as-code</em> files, it builds a <strong>provider.tf</strong> to source the <em>azurerm</em> details, and all the other configuration is generated in a monolithic <strong>main.tf</strong> file. This is the layout here:</p>
 <p><img src=/images/2022/importing-infrastructure-with-azure-terrafy/output.png alt="Configuration Output"></p>
 <h3 id=more-organization>More Organization</h3>
-<p>With <em>infra-as-code</em>, there is no easy button. To make things work at scale, things have to be organized. As a starting point, it would be neat to see <em>Terrafy</em> do more organization. Even something simple like breaking down infra into separate categories would be helpful. An example of this would be taking resources like <em>localNetworkGateways</em>, <em>networkSecurityGroups</em>, and <em>virtualNetworks</em> and putting them into a separate file called <strong>network.tf</strong> as they all fall under <strong>Microsoft.Network</strong> when drilling down through <em>azurerm</em>. Virtual Machines and all compute-related components fall under <strong>Microsoft.Compute</strong> and would be in a different file called <strong>compute.tf</strong>. Organizing things in categories like this would make it easy to sift through larger imports.</p>
+<p>With <em>infra-as-code</em>, there is no easy button. To make things work at scale, things have to be organized. As a starting point, it would be neat to see <em>Terrafy</em> do more organization. Even something simple like breaking down infra into separate categories would be helpful.</p>
+<p>An example of this would be taking resources like <em>localNetworkGateways</em>, <em>networkSecurityGroups</em>, and <em>virtualNetworks</em> and putting them into a separate file called <strong>network.tf</strong> as they all fall under <strong>Microsoft.Network</strong> when drilling down through <em>azurerm</em>.</p>
+<p>Virtual Machines and all compute-related components would fall under <strong>Microsoft.Compute</strong> and would be in a different file called <strong>compute.tf</strong>. Organizing things in categories like this would make it easy to sift through larger imports.</p>
 <h2 id=summary>Summary</h2>
 <p><em>Terrafy</em> is a great way to bring existing <em>infrastructure</em> into Terraform state. Installation and usage are simple, and the documentation is good. I think this tool will gain enough momentum that new features will come quickly, hopefully on the organization side. To learn more, visit <a href=https://github.com/azure/aztfy>the GitHub page</a>. Happy building!</p>
 </div>
