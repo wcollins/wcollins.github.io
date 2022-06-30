@@ -1,3 +1,303 @@
+<!doctype html><html lang=en>
 <head>
-...
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Exploring Azure Cloud Networking - (Part 1) - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="Is cloud networking complicated, or is it just different? In building your infrastructure in the cloud, end-to-end system complexity increases exponentially. As enterprise applications mature, the foundational infrastructure and networking used to host and transport them must evolve. One obvious crux of networking is blast radius - you cannot easily modify it without down-time.
+This is Part 1 of a multi-part series that will explore Azure networking. To the best of my ability, this series will be written to articulate real-world scenarios and bring attention to specifics that are critical to an understanding before diving into cloud networking architecture.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2021/exploring-azure-cloud-networking-part-1/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Exploring Azure Cloud Networking - (Part 1)">
+<meta property="og:description" content="Is cloud networking complicated, or is it just different? In building your infrastructure in the cloud, end-to-end system complexity increases exponentially. As enterprise applications mature, the foundational infrastructure and networking used to host and transport them must evolve. One obvious crux of networking is blast radius - you cannot easily modify it without down-time.
+This is Part 1 of a multi-part series that will explore Azure networking. To the best of my ability, this series will be written to articulate real-world scenarios and bring attention to specifics that are critical to an understanding before diving into cloud networking architecture.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2021/exploring-azure-cloud-networking-part-1/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-04-05T14:36:06-04:00">
+<meta property="article:modified_time" content="2021-04-05T14:36:06-04:00">
+<meta itemprop=name content="Exploring Azure Cloud Networking - (Part 1)">
+<meta itemprop=description content="Is cloud networking complicated, or is it just different? In building your infrastructure in the cloud, end-to-end system complexity increases exponentially. As enterprise applications mature, the foundational infrastructure and networking used to host and transport them must evolve. One obvious crux of networking is blast radius - you cannot easily modify it without down-time.
+This is Part 1 of a multi-part series that will explore Azure networking. To the best of my ability, this series will be written to articulate real-world scenarios and bring attention to specifics that are critical to an understanding before diving into cloud networking architecture."><meta itemprop=datePublished content="2021-04-05T14:36:06-04:00">
+<meta itemprop=dateModified content="2021-04-05T14:36:06-04:00">
+<meta itemprop=wordCount content="1173">
+<meta itemprop=keywords content="azure,cloud routing,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Exploring Azure Cloud Networking - (Part 1)">
+<meta name=twitter:description content="Is cloud networking complicated, or is it just different? In building your infrastructure in the cloud, end-to-end system complexity increases exponentially. As enterprise applications mature, the foundational infrastructure and networking used to host and transport them must evolve. One obvious crux of networking is blast radius - you cannot easily modify it without down-time.
+This is Part 1 of a multi-part series that will explore Azure networking. To the best of my ability, this series will be written to articulate real-world scenarios and bring attention to specifics that are critical to an understanding before diving into cloud networking architecture."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Exploring Azure Cloud Networking - (Part 1)</h1>
+<div class=post-meta>
+<span class=post-time> April 5, 2021 </span>
+<div class=post-category>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/cloud-architecture/> cloud architecture </a>
+<a href=/categories/cloud-networking/> cloud networking </a>
+</div>
+<span class=more-meta> 1173 words </span>
+<span class=more-meta> 6 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#core-concepts>Core Concepts</a>
+<ul>
+<li><a href=#common-components>Common Components</a></li>
+</ul>
+</li>
+<li><a href=#basic-routing>Basic Routing</a>
+<ul>
+<li><a href=#subnets>Subnets</a></li>
+<li><a href=#system-routes>System Routes</a></li>
+<li><a href=#route-selection>Route Selection</a></li>
+</ul>
+</li>
+<li><a href=#ip-addressing>IP Addressing</a>
+<ul>
+<li><a href=#ip-addressing-truths>IP Addressing Truths</a></li>
+<li><a href=#planning-up-front>Planning Up Front</a></li>
+</ul>
+</li>
+<li><a href=#virtual-network-peering>Virtual Network Peering</a>
+<ul>
+<li><a href=#peering-gone-wild>Peering Gone Wild</a></li>
+<li><a href=#is-peering-bad>Is Peering Bad?</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>Is <em>cloud networking</em> complicated, or is it just different? In building your infrastructure in the cloud, <em>end-to-end</em> system complexity increases exponentially. As enterprise applications mature, the foundational infrastructure and networking used to host and transport them must evolve. One obvious crux of networking is <em>blast radius</em> - you cannot easily modify it without <em>down-time</em>.</p>
+<p>This is <em>Part 1</em> of a multi-part series that will explore <a href=https://azure.microsoft.com/en-us/>Azure</a> networking. To the best of my ability, this series will be written to articulate <em>real-world</em> scenarios and bring attention to specifics that are critical to an understanding before diving into <em>cloud networking</em> architecture. Even in working through basics, sometimes a simple thing can be overlooked, which carries long-lasting implications over time.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/azure-networking-overview.png alt="Azure Networking - Overview"></p>
+<h2 id=core-concepts>Core Concepts</h2>
+<p>New and shiny services like <a href=https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-about>Virtual WAN</a> and <a href=https://azure.microsoft.com/en-us/services/route-server/>Route Server</a> will continually be released as capabilities evolve. While new services and features are released to make life easier, some things rarely change. A few core network components are always required when deploying just about any application.</p>
+<h3 id=common-components>Common Components</h3>
+<p>In the cloud, you generally have a hierarchy in which logical components exist, which may contain additional logical components. With Azure, for instance, <a href=https://docs.microsoft.com/en-us/azure/governance/management-groups/overview>Management Groups</a> include Subscriptions. <a href=https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/decision-guides/subscriptions/>Subscriptions</a> hold Resource Groups, which is where <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview>Virtual Networks</a> live. A VNet may be a shared resource across many apps and services in scope across many teams.</p>
+<ul>
+<li><a href=https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal>Resource Groups</a> are containers that hold common objects; An example might be all resources and services which make up an application</li>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview>Virtual Networks (VNets)</a> enable connectivity between your resources, forming the foundation you need to run applications in the cloud</li>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm#subnets>Subnets</a> are created from the <em>address space</em> defined at the VNet level; This allows a VNet to be segmented as needed</li>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#custom-routes>User-Defined Routes (UDRs)</a> are simply static routes that override Azure&rsquo;s default system routes or add additional routes to a subnet&rsquo;s route table; A given subnet can have <strong>0</strong> or <strong>1</strong> route tables associated with it</li>
+</ul>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/common-components.png alt="Common Components"></p>
+<h2 id=basic-routing>Basic Routing</h2>
+<p>Knowing how Azure routes traffic between virtual networks, on-premises, and over the Internet is <strong>good</strong> knowledge to have. Understanding how you can override certain default behaviors is <strong>excellent</strong> knowledge to have. Putting these things together to build a network that enables business outcomes should be the goal.</p>
+<h3 id=subnets>Subnets</h3>
+<p>In <a href=https://azure.microsoft.com/en-us/>Azure</a> and <a href=https://aws.amazon.com/>AWS</a>, VPCs and VNets are limited to a single Region. This is about where the similarities stop. With AWS, a subnet is limited to a single <a href=https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html>availability zone</a> while Azure extends a single subnet across all <a href=https://docs.microsoft.com/en-us/azure/availability-zones/az-overview#availability-zones>availability zones</a>.</p>
+<h3 id=system-routes>System Routes</h3>
+<p><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#system-routes>System Routes</a> are automatically created and assigned to each subnet. You cannot create system routes, nor can you remove them. A default routing table for a new subnet in Azure would look something like this:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Address Prefixes</th>
+<th>Next Hop Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default</td>
+<td>Address Space (assigned at provision time)</td>
+<td>Virtual Network</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0.0.0.0/0</td>
+<td>Internet</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>10.0.0.0/8</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>192.168.0.0/16</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>100.64.0.0/10</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><em>Next Hop Types</em> are self-explanatory. The type <strong>Virtual Network</strong> routes traffic between address ranges carved out from the <em>VNet&rsquo;s</em> address space. For internet egress, type <strong>Internet</strong> is used. If you want to <strong>Null</strong> route traffic, type <strong>None</strong> is used; Traffic will be discarded.</p>
+<blockquote>
+<p>You can validate effective routes via <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface#view-network-interface-settings>network interface settings</a> or <a href=https://docs.microsoft.com/en-us/azure/virtual-network/manage-route-table#view-details-of-a-route-table>route tables</a>.</p>
+</blockquote>
+<h3 id=route-selection>Route Selection</h3>
+<p>How exactly does route selection in <a href=https://azure.microsoft.com/en-us/>Azure</a> work? With traffic exiting a given subnet, a decision must be made based on the destination IP Address. Azure makes this decision based <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-a-route>on the longest prefix.</a> If multiple routes contain the same address prefix, the tie is broken based on the following priority:</p>
+<ol>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#custom-routes>User Defined Routes (Custom)</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#border-gateway-protocol>Border Gateway Protocol (BGP)</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#system-routes>System Route (Default)</a></li>
+</ol>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/longest-prefix-wins.png alt="Longest Prefix Wins"></p>
+<blockquote>
+<p>System Routes for VNet peering is always a preferred route, even if BGP routes are more specific. This is a small but critical detail as a design evolves.</p>
+</blockquote>
+<h2 id=ip-addressing>IP Addressing</h2>
+<p>Some decisions age like fine wine, while others seem to age like sour milk. An area that comes to mind here is <strong>IP Address Planning</strong>. Taking some time to plan out your <em>IP Addressing Scheme</em> upfront can go a long way.</p>
+<h3 id=ip-addressing-truths>IP Addressing Truths</h3>
+<p>There is no <em>one size fits all</em> here. A few things that are general truths include:</p>
+<ol>
+<li>IP Addressing Scheme should match the topology or vice versa</li>
+<li>VNet Address Space cannot be <a href="https://docs.Microsoft.com/en-us/azure/architecture/networking/prefixes/add-ip-space-peered-vnet#:~:text=Many%20organizations%20deploy%20a%20virtual,the%20Hub%20and%20Spoke%20model.&text=However%2C%20address%20ranges%20can't,peered%20with%20another%20virtual%20network.">added, modified, or removed</a> if a VNet peer is established</li>
+<li>Design dictates consumption; Good automation becomes difficult with poorly planned designs</li>
+<li><em>IP Addressing</em> and <em>Segmentation</em> is a collaborative exercise; Align with the Security Overlords</li>
+</ol>
+<h3 id=planning-up-front>Planning Up Front</h3>
+<p>Let&rsquo;s use Healthcare as an example. Privacy is critical, and <a href=https://www.cdc.gov/phlp/publications/topic/hipaa.html>HIPAA</a> sets clear guidelines on the use and release of health records. If your business deals with protected information, then <em>data classification</em> is a great place to start. If you have a combination of applications (some leveraging protected information and some that do not), both categories can be treated fundamentally differently.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/ip-scheme-overview.png alt="IP Addressing Scheme"></p>
+<p>The above example puts <strong>data classification</strong> at center stage. If you can categorize all of your <em>protected data</em> at a higher level, this simplifies the work required to ensure compliance. Think of it like this:</p>
+<ol>
+<li>Protected Data can only exist in the <strong>Production (With Protected Data)</strong> segment</li>
+<li>An alternative <strong>Production</strong> segment exists for workloads not requiring access to Protected Data</li>
+<li><strong>Non-Production</strong> exists for all <em>lower-stage</em> environments across both <strong>Production</strong> segments; Synthetic Data enables rapid prototyping of heavily regulated data in lower-stage environments (Preventing the risk of accidental exposure)</li>
+</ol>
+<h2 id=virtual-network-peering>Virtual Network Peering</h2>
+<p>At some point, connectivity between two or more virtual networks is going to become a requirement. As you grow, chances are, your virtual network footprint will expand significantly. <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview>Virtual Network Peering</a> enables connectivity between two or more virtual networks. The big caveat with peering is, virtual networks natively are <em>none-transitive</em>. This means, if you have 3 VNets, you can&rsquo;t route from <strong>VNet: A</strong> to <strong>VNet: C</strong> through <strong>VNet: B</strong>.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/transitive-routing.png alt="Transitive Routing"></p>
+<h3 id=peering-gone-wild>Peering Gone Wild</h3>
+<p>Without giving network peering more thought, common sense may imply just peering VNets which require communication. So, we peer every virtual network with every other virtual network. What is the worst that could happen? I like <em>spaghetti</em> myself, but I don&rsquo;t think of it as a design principle when building my networks!</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-1/full-mesh-peering.png alt="Full Mesh - Peering"></p>
+<h3 id=is-peering-bad>Is Peering Bad?</h3>
+<p>No, peering is not bad. Like any feature, you should think through how it is used to provide the outcomes you want. Also, try hard not to over-extend it to do things that it was not designed to do. If you are peering everything with everything, then maybe the problem that needs to be solved is transitive routing. In thinking through VNet peering, some obvious things come to mind:</p>
+<ul>
+<li><strong>Cost</strong> - <a href=https://azure.microsoft.com/en-us/pricing/details/virtual-network/>Inbound/Outbound Charges</a></li>
+<li><strong>Reliability</strong> - A failure occurs with a connection; How would redundancy or mitigation work?</li>
+<li><strong>Operations</strong> - As new VNets are added, overhead and complexity grows exponentially</li>
+<li><strong>Security</strong> - Least privilege is real; <em>What can talk to what</em> now shifts to <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#user-defined>UDRs</a> and <a href=https://docs.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview>NSGs</a></li>
+</ul>
+<h2 id=conclusion>Conclusion</h2>
+<p>Now that we have a basic understanding of foundational network components, what&rsquo;s next? For <a href=https://wcollins.io/post/2021/exploring-azure-cloud-networking-part-2/>Part 2</a>, we will go through the evolution of common network patterns ranging from <em>my own little desert island</em>, to modern <em>hub-and-spoke</em> designs that we see today in larger environments.</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/azure/>azure</a>
+<a href=/tags/cloud-routing/>cloud routing</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2021/exploring-azure-cloud-networking-part-2/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Exploring Azure Cloud Networking - (Part 2)</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2021/cloud-grade-automation-with-packer-and-terraform/>
+<span class="next-text nav-default">Cloud Grade Automation With Packer and Terraform</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=copyright-year>
+&copy;
+2020 -
+2022<span class=division> | </span>
+<span>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

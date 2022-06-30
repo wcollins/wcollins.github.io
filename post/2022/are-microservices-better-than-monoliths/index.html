@@ -1,3 +1,287 @@
+<!doctype html><html lang=en>
 <head>
-...
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Are Microservices Better Than Monoliths? - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="The year is 2022, and Kubernetes is wreaking havoc on software delivery as we know it. Applications are going through modernization programs so they can be converted into microservices, but they are coming out the other end as distributed monoliths. Next thing you know, services exist across several clouds and even in your data centers. And, of course, the large majority of enterprises aren&amp;rsquo;t just greenfield.
+Many have a combination of technologies stacked over decades, including mainframes.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2022/are-microservices-better-than-monoliths/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Are Microservices Better Than Monoliths?">
+<meta property="og:description" content="The year is 2022, and Kubernetes is wreaking havoc on software delivery as we know it. Applications are going through modernization programs so they can be converted into microservices, but they are coming out the other end as distributed monoliths. Next thing you know, services exist across several clouds and even in your data centers. And, of course, the large majority of enterprises aren&rsquo;t just greenfield.
+Many have a combination of technologies stacked over decades, including mainframes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2022/are-microservices-better-than-monoliths/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-02-07T07:11:43-05:00">
+<meta property="article:modified_time" content="2022-02-07T07:11:43-05:00">
+<meta itemprop=name content="Are Microservices Better Than Monoliths?">
+<meta itemprop=description content="The year is 2022, and Kubernetes is wreaking havoc on software delivery as we know it. Applications are going through modernization programs so they can be converted into microservices, but they are coming out the other end as distributed monoliths. Next thing you know, services exist across several clouds and even in your data centers. And, of course, the large majority of enterprises aren&rsquo;t just greenfield.
+Many have a combination of technologies stacked over decades, including mainframes."><meta itemprop=datePublished content="2022-02-07T07:11:43-05:00">
+<meta itemprop=dateModified content="2022-02-07T07:11:43-05:00">
+<meta itemprop=wordCount content="1693">
+<meta itemprop=keywords content="kubernetes,microservice-apps,monolithic-apps,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Are Microservices Better Than Monoliths?">
+<meta name=twitter:description content="The year is 2022, and Kubernetes is wreaking havoc on software delivery as we know it. Applications are going through modernization programs so they can be converted into microservices, but they are coming out the other end as distributed monoliths. Next thing you know, services exist across several clouds and even in your data centers. And, of course, the large majority of enterprises aren&rsquo;t just greenfield.
+Many have a combination of technologies stacked over decades, including mainframes."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Are Microservices Better Than Monoliths?</h1>
+<div class=post-meta>
+<span class=post-time> February 7, 2022 </span>
+<div class=post-category>
+<a href=/categories/app-modernization/> app-modernization </a>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/distributed-systems/> distributed-systems </a>
+<a href=/categories/enterprise-tech/> enterprise-tech </a>
+<a href=/categories/microservice-architecture/> microservice-architecture </a>
+<a href=/categories/monolithic-architecture/> monolithic-architecture </a>
+<a href=/categories/tools/> tools </a>
+</div>
+<span class=more-meta> 1693 words </span>
+<span class=more-meta> 8 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#what-is-monolithic-architecture>What Is Monolithic Architecture?</a>
+<ul>
+<li><a href=#when-to-monolith>When To Monolith</a></li>
+<li><a href=#criticism-of-monolithic-architecture>Criticism of Monolithic Architecture</a></li>
+</ul>
+</li>
+<li><a href=#what-is-microservice-architecture>What Is Microservice Architecture?</a>
+<ul>
+<li><a href=#when-to-microservice>When To Microservice</a></li>
+<li><a href=#criticism-of-microservice-architecture>Criticism of Microservice Architecture</a></li>
+</ul>
+</li>
+<li><a href=#things-to-consider-before-changing-things-up>Things To Consider Before Changing Things Up</a>
+<ul>
+<li><a href=#organizational-structure>Organizational Structure</a></li>
+<li><a href=#distributing-the-monolith>Distributing The Monolith</a></li>
+<li><a href=#understanding-the-cost>Understanding The Cost</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a>
+<ul>
+<li><a href=#acknowledgements>Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>The year is <strong>2022</strong>, and <a href=https://kubernetes.io/>Kubernetes</a> is wreaking havoc on software delivery as we know it. Applications are going through <strong>modernization</strong> programs so they can be converted into <a href=https://en.wikipedia.org/wiki/Microservices>microservices</a>, but they are coming out the other end as <em>distributed monoliths</em>. Next thing you know, services exist across several clouds and even in your data centers. And, of course, the large majority of enterprises aren&rsquo;t just greenfield.</p>
+<p>Many have a combination of technologies stacked over decades, including mainframes. Want some perspective? Check out this article on how <a href=https://www.tpr.org/technology-entrepreneurship/2019-05-23/how-cobol-still-powers-the-global-economy-at-60-years-old>COBOL still powers the Global Economy</a>. In this blog, let&rsquo;s examine the polarization of <strong>Kubernetes</strong> and <strong>microservices</strong>. Is it a zero-sum game, or is the real world destined to merge many different types of solutions in organized chaos forever? Before jumping into the world of the <em>microservice</em>, let&rsquo;s visit our old friend, the <em>monolith</em>.</p>
+<div class="admonition quote"><p class=admonition-title>Monolith</p>
+<ol>
+<li>
+<p>: a single great stone often in the form of an obelisk or column</p>
+</li>
+<li>
+<p>: a massive structure</p>
+</li>
+<li>
+<p>: an organized whole that acts as a single unified powerful or influential force</p>
+<p><a href=https://www.merriam-webster.com/dictionary/monolith>Merriam-Webster</a></p>
+</li>
+</ol>
+</div>
+<h2 id=what-is-monolithic-architecture>What Is Monolithic Architecture?</h2>
+<p>A <a href=https://en.wikipedia.org/wiki/Monolithic_application>monolithic application</a> consists of a server-side application, database, and client-side interface, all of which are deployed as a single unit. You could even have a <em>monolith</em> in the cloud constructed with a <em>cloud-native</em> database, load balancer, and application running on <em>virtual machines</em>. The vital question to ask is, <strong>will rebuilding the application with a different architecture replace more problems than it is creating?</strong></p>
+<p><img src=/images/2022/are-microservices-better-than-monoliths/monolithic-app.png alt="Monolithic App"></p>
+<h3 id=when-to-monolith>When To Monolith</h3>
+<p>Of course, the answer to this is, <strong>it depends</strong>. Greenfield applications that need to scale horizontally can do so in full monolithic glory using a combination of infrastructure-as-code, image management tooling, and cloud-native services. Yes, fully automated, immutable, pipelines-on-pipelines, and reliability grandma would be proud of.</p>
+<p>And the best part about this is simplicity. <strong>In my experience, having something simple enough to match where an organization is at ends up being far more valuable than something too complicated to troubleshoot, understand, or upgrade.</strong> Technology affords us the means to simplify things, and in return, our brains tend to overthink and complicate it.</p>
+<p>A monolithic system&rsquo;s initial <strong>simplicity</strong> can be appealing in many cases. Defining requirements, testing, and getting your <a href=https://en.wikipedia.org/wiki/Minimum_viable_product>MVP</a> off the ground is quick. Some of the premiere companies built on <em>microservices</em>, like <a href=https://www.netflix.com/>Netflix</a>, started with a <em>monolithic</em> architecture. Check out this talk given by <em>Ruslan Meshenberg</em> on their journey:</p>
+<div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
+<iframe src=https://www.youtube.com/embed/57UK46qfBLY style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe>
+</div>
+<h3 id=criticism-of-monolithic-architecture>Criticism of Monolithic Architecture</h3>
+<p>Some of the everyday shade thrown towards <em>monolithic</em> architecture include:</p>
+<ul>
+<li>Diminished understanding over time of the application&rsquo;s architecture as a whole</li>
+<li>Lack of modularity, thus limiting reuse or replacement of individual components</li>
+<li>Ability to make quick and reliable changes following increased growth + complexity</li>
+<li>Slower innovation coupled with a vastly competitive market; Risk of losing market share</li>
+<li>Scaling limitations; Entire application can scale, but not specific services</li>
+</ul>
+<div class="admonition tip"><p class=admonition-title>Zooming Out</p>
+<p>Just because an application is <em>monolithic</em> doesn&rsquo;t mean it&rsquo;s <em>legacy</em> or even <em>outdated</em>. If you have a single <em>monolith</em> with clearly defined module boundaries, sound design, and the ability to scale to an organization&rsquo;s needs, then why change anything at all?</p>
+</div>
+<h2 id=what-is-microservice-architecture>What Is Microservice Architecture?</h2>
+<p><em>Microservices</em> position themselves as the <strong>paladin</strong>, leading the cause against the feared and long-lived tyrant, the infamous <a href=https://en.wikipedia.org/wiki/Monolithic_system>Monolith</a>. The microservice architecture breaks up a given application into loosely coupled and independently deployable services. Each of these services has its own codebase, database, and management model. <a href=https://kubernetes.io/>Kubernetes</a> has emerged as the vehicle of choice for service orchestration. A common goal is to align those services to business capabilities with clearly defined <a href=https://www.redhat.com/architect/microservice-context-boundaries>context boundaries</a>.</p>
+<p><img src=/images/2022/are-microservices-better-than-monoliths/microservice-app.png alt="Microservice App"></p>
+<div class="admonition info"><p class=admonition-title>Context Boundaries</p>
+<p>In large enterprises, <em>context boundaries</em> are generally predicated on the <em>domain-driven</em> structures of the organization. Furthermore, these contexts forge the boundary for the size and scope of the service. Domain experts must collaborate with development and infrastructure teams to ensure success and cohesion across parallel domains, making this concept a big hurdle for many modernization efforts.</p>
+</div>
+<h3 id=when-to-microservice>When To Microservice</h3>
+<p>If a system can&rsquo;t support exponential growth, thus failing to deliver on business goals, then <em>microservices</em> could be the answer <em>(meaning they solve problems related to horizontal scale)</em>. In large organizations, new technologies can often be championed to solve <em>human</em> or <em>organizational</em> problems. This tends to snowball over time as the number of solutions and technical staff to operate them increases. Solving causal problems requires an accurate understanding of their causal structure. One of the best explanations on this I have heard came from Rob Brigham at <strong>re:Invent 2015</strong>:</p>
+<div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
+<iframe src=https://www.youtube.com/embed/esEFaY0FDKc style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe>
+</div>
+<p>In this talk, Rob recalls Amazon&rsquo;s retail website back in <strong>2001</strong> and how it was a large architectural monolith. He then explains how this <em>monolith</em> became problematic and why breaking it into smaller pieces was the right solution. In Rob&rsquo;s story, maintaining, testing, and deploying in smaller chunks solved the scaling challenges Amazon was facing.</p>
+<div class="admonition tip"><p class=admonition-title>Microservices Make Systems</p>
+<p>It should also be noted that although you can deploy <em>microservices</em> independently, this does not mean they are entirely <a href=https://www.dictionary.com/browse/decouple>decoupled</a>. The goal is to produce a distributed system <strong>from</strong> a collection of services working harmoniously together for the good of the system as a whole. And although using <em>microservice</em> architecture helps manage and scale complex systems, it can also introduce many new and often <em>unquantifiable</em> complexities as a result.</p>
+</div>
+<h3 id=criticism-of-microservice-architecture>Criticism of Microservice Architecture</h3>
+<p>On <a href=https://changelog.com/gotime/114>GoTime#114</a>, Kelsey Hightower talked at around <strong>54:20</strong> about one of his <em>unpopular opinions</em> which is, <strong><em>&ldquo;Monoliths are the future&rdquo;</em></strong>. You can read some of the excerpts <a href=https://changelog.com/posts/monoliths-are-the-future>here</a>, but I would suggest going back and listening to the entire show to get the full context. Some of the common criticisms of microservice architecture include:</p>
+<ul>
+<li>Transitioning from monoliths require comprehensive understanding and refactoring</li>
+<li>Distributed nature adds complexity to testing; Increased overhead as services grow</li>
+<li>Time and cost associated with refactoring existing app portfolio to <em>microservices</em></li>
+<li>Visibility and traceability challenges; New tooling required to manage sprawl</li>
+<li>Increased moving parts create a larger attack surface; New points of ingress/egress</li>
+<li>Relationship between services is often as efficient as collaboration between teams</li>
+</ul>
+<div class="admonition danger"><p class=admonition-title>Is Something Broke?</p>
+<p>Enterprise Ops teams typically absorb a lot of data that drives metrics for the business. The real test comes when something is broken. How quickly can an operations team restore service? If it is not in their power to restore service, how fast can the fault be identified and escalated to the appropriate team that can take action? Debugging <em>microservices</em> often comes down to sifting through never-ending logs. Since many issues stem from failed integration between components, using methods like <em>distributed tracing</em> is necessary to understand the relationship between logs to identify issues between services.</p>
+</div>
+<h2 id=things-to-consider-before-changing-things-up>Things To Consider Before Changing Things Up</h2>
+<p>You get to work and sit down at your desk <em>(or maybe roll out of bed and turn on your laptop)</em>. You attend your company&rsquo;s Townhall presented by the <em>CTO</em>. This is the year of <strong>Digital Transformation</strong>. If <a href=https://google.com>Google</a> can <em>microservice</em> on the <em>kubernetes</em>, so can we. It is time to modernize these legacy apps. What would I say if I had a few minutes to talk to this <em>CTO</em>?</p>
+<h3 id=organizational-structure>Organizational Structure</h3>
+<p>Many enterprises today are still organized hierarchically, making the whole structure complex. This directly impacts the speed at which <em>critical</em> decisions are made, thus delaying work from being completed. In <em>post-pandemic</em> life, the ability to make quick and effective decisions is crucial at any rate, but especially when approaching modernized ways of delivering software. Finding ways to <strong>flatten the structure, clearly define the roles, and push empowerment for decision making lower can help with organizing for the future.</strong></p>
+<h3 id=distributing-the-monolith>Distributing The Monolith</h3>
+<p>In life, sometimes the <em>human</em> side of us tends to hammer a square peg into a round hole. Designed initially not to fit, we continue to take swings. If the hammer is big enough and the peg is as frail as many applications, you will get the peg into the hole. Now the operation of the object housing the <em>peg</em> may work, but not to its full potential.</p>
+<p>When it comes to transitioning <em>monolithic</em> applications into <em>microservices</em>, the result is often distributing the <em>monolith</em>. This type of application is deployed like a <em>microservice</em> but built like a traditional <em>monolith</em>. I have often seen this happen with applications hammered into the managed cloud provider <em>kubernetes</em> services. Are you in this boat? Start with these questions:</p>
+<ul>
+<li>Are any of our <em>microservices</em> sharing a datastore?</li>
+<li>Is our <em>rock-star</em> developer working across multiple <em>microservices</em>?</li>
+<li>Does making a change in one <em>microservice</em> require changes to others?</li>
+</ul>
+<h3 id=understanding-the-cost>Understanding The Cost</h3>
+<p>In this scenario, we retain some of the problems we were initially trying to escape. Changing a small chunk of the application still comes with redeploying the whole thing, the horizontal scale is not as efficient as it could be, and deployments are slow. Also, the compound interest begins to sting because we have the complexity of <em>microservices</em>.</p>
+<p>Many variables outside the application may impact the overall picture, including culture, infrastructure, adequate staffing, and technical talent. While no single solution can solve all problems, it stands to reason that a thorough understanding of where the <em>culture</em> and <em>technology</em> are should be the first step prior to planning any major transformational exercises. Attempting to modernize <em>misunderstood</em> and <em>misrepresented</em> applications with <strong>Kubernetes</strong> is not a strategy.</p>
+<h2 id=conclusion>Conclusion</h2>
+<p>In my opinion, many legacy applications will continue to run in the enterprise space. Some will end up getting <em>rehosted</em> in the cloud, <em>replatformed</em> or decommissioned in favor of equivalent <em>SaaS</em> offerings. Others will go through large <em>modernization</em> initiatives coming out the other end as <em>distributed</em> monoliths running on <em>kubernetes</em>. Purely <em>greenfield</em> applications have a better chance at seeing real <em>microservice</em> architecture and reaping the benefits. Are any of these things wrong? I don&rsquo;t think so.</p>
+<p><strong>The only constant is change</strong>. The ability to acknowledge that something isn&rsquo;t working and promote the <em>fail-fast</em> mentality from the top will encourage new ideas, technologies, and practices that help keep an organization relevant. If there is a culture of fear, then innovative solutions from talented engineers will get sidelined. <strong>The <em>monolith</em> VS <em>microservice</em> conversation doesn&rsquo;t matter.</strong> Delivering the best possible product to the customer with the resources available to you while delivering on business goals does.</p>
+<h3 id=acknowledgements>Acknowledgements</h3>
+<p>Big thanks to <a href=https://www.linkedin.com/in/kiran-dongara/>Kiran Dongara</a> for taking the time to <em>peer-review</em>. Your wisdom and feedback are much appreciated!</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/kubernetes/>kubernetes</a>
+<a href=/tags/microservice-apps/>microservice-apps</a>
+<a href=/tags/monolithic-apps/>monolithic-apps</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2022/importing-infrastructure-with-azure-terrafy/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Importing Infrastructure With Azure Terrafy</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2022/shifting-left-with-lightlytics/>
+<span class="next-text nav-default">Shifting Left with Lightlytics</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=copyright-year>
+&copy;
+2020 -
+2022<span class=division> | </span>
+<span>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

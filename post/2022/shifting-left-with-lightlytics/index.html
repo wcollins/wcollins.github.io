@@ -1,3 +1,239 @@
+<!doctype html><html lang=en>
 <head>
-...
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Shifting Left with Lightlytics - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="The public cloud continued to dominate spending in 2021. Gartner forecasts worldwide end-user spending for public cloud to reach $397.4 billion by 2022. With increased velocity; automation continues to be a critical business imperative for the enterprise. Getting automation right means getting all the appropriate teams pulled into the process early on (shift left). Lightlytics is a new SaaS product on the market that aims to make DevOps for cloud infrastructure as agile as software delivery.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2022/shifting-left-with-lightlytics/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Shifting Left with Lightlytics">
+<meta property="og:description" content="The public cloud continued to dominate spending in 2021. Gartner forecasts worldwide end-user spending for public cloud to reach $397.4 billion by 2022. With increased velocity; automation continues to be a critical business imperative for the enterprise. Getting automation right means getting all the appropriate teams pulled into the process early on (shift left). Lightlytics is a new SaaS product on the market that aims to make DevOps for cloud infrastructure as agile as software delivery.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2022/shifting-left-with-lightlytics/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-01-04T13:04:48-05:00">
+<meta property="article:modified_time" content="2022-01-04T13:04:48-05:00">
+<meta itemprop=name content="Shifting Left with Lightlytics">
+<meta itemprop=description content="The public cloud continued to dominate spending in 2021. Gartner forecasts worldwide end-user spending for public cloud to reach $397.4 billion by 2022. With increased velocity; automation continues to be a critical business imperative for the enterprise. Getting automation right means getting all the appropriate teams pulled into the process early on (shift left). Lightlytics is a new SaaS product on the market that aims to make DevOps for cloud infrastructure as agile as software delivery."><meta itemprop=datePublished content="2022-01-04T13:04:48-05:00">
+<meta itemprop=dateModified content="2022-01-04T13:04:48-05:00">
+<meta itemprop=wordCount content="1257">
+<meta itemprop=keywords content="github actions,infrastructure-as-code,lightlytics,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Shifting Left with Lightlytics">
+<meta name=twitter:description content="The public cloud continued to dominate spending in 2021. Gartner forecasts worldwide end-user spending for public cloud to reach $397.4 billion by 2022. With increased velocity; automation continues to be a critical business imperative for the enterprise. Getting automation right means getting all the appropriate teams pulled into the process early on (shift left). Lightlytics is a new SaaS product on the market that aims to make DevOps for cloud infrastructure as agile as software delivery."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Shifting Left with Lightlytics</h1>
+<div class=post-meta>
+<span class=post-time> January 4, 2022 </span>
+<div class=post-category>
+<a href=/categories/automation/> automation </a>
+<a href=/categories/devops/> devops </a>
+<a href=/categories/devsecops/> devsecops </a>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/cspm/> cspm </a>
+<a href=/categories/startup/> startup </a>
+<a href=/categories/tools/> tools </a>
+</div>
+<span class=more-meta> 1257 words </span>
+<span class=more-meta> 6 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#getting-started>Getting Started</a>
+<ul>
+<li><a href=#adding-an-aws-account>Adding an AWS Account</a></li>
+</ul>
+</li>
+<li><a href=#a-common-scenario>A Common Scenario</a>
+<ul>
+<li><a href=#some-risky-configuration>Some Risky Configuration</a></li>
+<li><a href=#simulation-with-github-actions-integration>Simulation with GitHub Actions Integration</a></li>
+<li><a href=#entering-devsecops>Entering DevSecOps</a></li>
+<li><a href=#discovering-brownfield>Discovering Brownfield</a></li>
+</ul>
+</li>
+<li><a href=#why-use-lightlytics>Why use Lightlytics?</a>
+<ul>
+<li><a href=#barrier-to-entry>Barrier to Entry</a></li>
+<li><a href=#going-beyond-terraform-state>Going beyond Terraform State</a></li>
+<li><a href=#agentless-approach>Agentless Approach</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>The <em>public cloud</em> continued to dominate spending in 2021. Gartner forecasts worldwide end-user spending for public cloud to reach <a href=https://www.gartner.com/en/newsroom/press-releases/2021-04-21-gartner-forecasts-worldwide-public-cloud-end-user-spending-to-grow-23-percent-in-2021>$397.4 billion by 2022.</a> With increased velocity; automation continues to be a critical business imperative for the enterprise. Getting automation right means getting all the appropriate teams pulled into the process early on <em>(shift left)</em>. <a href=https://www.lightlytics.com/>Lightlytics</a> is a new <em>SaaS</em> product on the market that aims to make <em>DevOps</em> for cloud infrastructure as agile as software delivery.</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/intro.png alt=Intro></p>
+<div class="admonition tip"><p class=admonition-title>What is Shifting Left?</p>
+<p><a href=https://en.wikipedia.org/wiki/Shift-left_testing>Shift left</a> is the practice of getting adequate <em>testing</em> completed <strong>early</strong>, <strong>often</strong>, and with the <strong>right team engagement</strong>. Instead of cloud security practitioners being brought in to remediate an environment that is <em>QA</em> getting ready to go <em>Prod</em>, shifting-left would integrate security policy as early as initial development pull requests (or even commits) to version control. If you can&rsquo;t merge risky infrastructure-as-code in the first place, then it will never make it to Prod!</p>
+</div>
+<h2 id=getting-started>Getting Started</h2>
+<p><a href=https://www.lightlytics.com/>Lightlytics</a> is a <strong>SaaS</strong> platform that empowers <strong>SRE + DevOps</strong> to automatically predict, pre-empt, and prevent failures, downtime, or business disruption caused by infrastructure. Getting started is pretty simple as they offer a <a href=https://www.lightlytics.com/signup>14-day free trial (no credit card required)</a>. Let&rsquo;s take it for a spin!</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/product-overview.png alt="Product Overview"></p>
+<h3 id=adding-an-aws-account>Adding an AWS Account</h3>
+<p>To get started, you need to add an AWS account. This is done by simply providing your <em>Account ID</em>, choosing a <em>Display Name</em>, and selecting the AWS regions you have infrastructure deployed to. Lightlytics creates an <a href=https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>IAM Role</a> for <strong>Read Access</strong> using a <a href=https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html>CloudFormation Stack</a>.</p>
+<p>To keep your posture up-to-date in <strong>real-time</strong>, your account must have <a href=https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html>CloudTrail</a> configured with a <strong>Management Events</strong> trail that applies to all regions. You can then enable <em>real time</em> collection of configuration events and updates (meaning Lightlytics stays up-to-date with infrastructure changes as they happen). This is enabled through an additional <em>CloudFormation Stack</em>.</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/add-account.gif alt="Add AWS Account"></p>
+<h2 id=a-common-scenario>A Common Scenario</h2>
+<p>Security-focused teams in enterprises generally want to decrease or eliminate direct internet exposure (especially from EC2 instances). Somehow, this still ends up happening, and <em>reactive</em> projects are scoped out to remediate. Let&rsquo;s take this scenario through the paces with <em>Lightlytics</em> and see how it might prevent us from doing this.</p>
+<h3 id=some-risky-configuration>Some Risky Configuration</h3>
+<p>The following <a href=https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html>security group</a> is referenced in my <strong>aws_network_interface</strong> configuration, which is attached directly to my <strong>EC2 instance</strong>. I also set up an <strong>aws_route</strong> with the destination CIDR of <strong>0.0.0.0/0</strong> to an IGW. This configuration will allow both <strong>ingress</strong> and <strong>egress</strong> internet traffic for the ec2 instance.</p>
+<script type=application/javascript src=https://gist.github.com/wcollins/cac286b88971f4872cbd330a4315c872.js></script>
+<div class="admonition warning"><p class=admonition-title>Security Today is Reactive</p>
+<p>One trend I&rsquo;ve noticed with <em>cloud security</em> in the enterprise is, response to risky configuration seems to be <strong>reactive</strong>. Some bad configuration happens over a period of time followed by an audit. The audit yields actionable insights, and a remediation effort is planned. It is never easy <strong>remediating</strong> production infrastructure as an outage is usually incurred. How could we get <strong>security</strong> in the loop to get eyes on and understand the scope of the change before it ever gets any legs?</p>
+</div>
+<h3 id=simulation-with-github-actions-integration>Simulation with GitHub Actions Integration</h3>
+<p>This <a href=https://docs.github.com/en/actions>GitHub Actions</a> workflow is slightly modified from <a href=https://docs.lightlytics.com/docs/github-action>the Lightlytics Documentation.</a> Every time an attempt is made to <strong>merge</strong> changes to infrastructure into <strong>main</strong>, this workflow will <em>kick-off</em> and simulate the proposed changes in <em>Lightlytics</em>. This works by executing the <em>Terraform Plan</em> and sending the plan output to <em>Lightlytics</em> with each designated trigger (push/pull request). A link is generated directly to the simulation in the <strong>gitflow</strong>. In a subsequent release, <em>Lightlytics</em> plans to release the ability to automatically fail <em>pull requests</em> if a violation is detected.</p>
+<script type=application/javascript src=https://gist.github.com/wcollins/195f6b0e96bc4e4e9652bcc818d9b6ae.js></script>
+<h3 id=entering-devsecops>Entering DevSecOps</h3>
+<p>This is valuable because you could enforce default <strong>protections</strong> on every new git repository you create (complete with security approvers). The security practitioner could then click on the link and review an easy-to-follow simulation outlining the <strong>impact radius</strong> before approving and merging the changes. Can you say <strong>DevSecOps</strong>?</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/workflow.gif alt="GitHub Actions - Workflow"></p>
+<h3 id=discovering-brownfield>Discovering Brownfield</h3>
+<p>Things have a habit of slipping through the cracks. <a href=https://docs.lightlytics.com/docs/discovery-overview>Lightlytics Discovery</a> decomposes all the dependencies between services, containers, or other common infrastructure you may have deployed. What if I need to find all <strong>EC2 instances</strong> that have internet <em>ingress</em> or <em>egress</em> in an unsupported design? I can narrow this criterion down using <strong>Search Paths</strong> in the <em>Discovery</em> dashboard. Using <em>Internet</em> as the source, I can set the Destination as a <em>Resource Type</em> (In this example, I use EC2).</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/resource-path.gif alt="Discovery - Resource Path"></p>
+<h2 id=why-use-lightlytics>Why use Lightlytics?</h2>
+<p>There are a lot of great <em>open-source</em> projects on the market that work by scanning Terraform <strong>HCL</strong> or <strong>Plan</strong> files that can accomplish most of what was outlined in this blog. Why would I turn to something like <em>Lightlytics</em>?</p>
+<h3 id=barrier-to-entry>Barrier to Entry</h3>
+<p>There is a reason <strong>SaaS</strong> is the largest market segment <em>(public cloud services)</em>. Lightlytics requires minimal setup while making quick and easy work of integrating with <em>version control</em> and adding immediate value with thoughtful change review. The more <em>open-source</em> you go, the more customization is required to get the desired results. Furthermore, you must take steps to understand the maintainers of an <em>open-source</em> project, how it gets funded, and possibly assess the risk of it potentially being abandoned.</p>
+<h3 id=going-beyond-terraform-state>Going beyond Terraform State</h3>
+<p>Many products I&rsquo;ve tested for <em>static code analysis</em> are effective only with <em>infrastructure</em> that is managed in <a href=https://www.terraform.io/language/state>Terraform State.</a> Lightlytics takes this further by simulating changes against the entire infrastructure contained in the <em>AWS account</em>. If I have a <em>brownfield</em> environment deployed outside of Terraform State, I want to make sure the influx of new changes doesn&rsquo;t negatively impact it.</p>
+<h3 id=agentless-approach>Agentless Approach</h3>
+<p>In reading my past blogs, you&rsquo;ll know I&rsquo;m partial to approaching as many problems as possible without <em>agents</em> or <em>appliances</em>, <strong>especially</strong> in the cloud. In the <strong>CSPM</strong> space, products generally use some combination of API calls, cloud logs, proprietary agents, or appliances. <em>Lightlytics</em> uses a combination of <em>API calls</em> along with integrations to <em>cloud native</em> features like <a href=https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html>CloudTrail</a> and even <a href=https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html>VPC Flow Logs</a> to add <em>data-plane</em> context.</p>
+<p>With this approach, there is no reliance on scheduled or periodic scans of your infrastructure or git repositories. The posture is updated as changes happen. The following <strong>.gif</strong> was taken as I ran a <strong>terraform apply</strong>. Events were populating on the <strong>Lightlytics</strong> dashboard as they were completed in the Terraform plan output in <em>real time</em>. There is value here in that no gap exists between new <em>infrastructure</em> being provisioned and operational posture getting updated. This is what makes the <strong>Simulation</strong> piece compelling since you know that it will be running against a completely up-to-date <em>picture</em> of your entire infrastructure.</p>
+<p><img src=/images/2022/shifting-left-with-lightlytics/realtime-posture.gif alt="Real Time - Posture"></p>
+<div class="admonition question"><p class=admonition-title>Why Agentless?</p>
+<p>In some circumstances, agents are a <strong>must</strong>. This holds true especially when an in-depth perspective into an asset&rsquo;s OS, kernel, and processes is required. As the shift to <em>immutable infrastructure</em> continues, the need for this is minimized as resources like <em>VMs</em> are not long-lived. Leveraging <em>cloud native</em> API calls and logging provides a seamless union allowing for better integration and correlation with native provider automation and enforcement mechanisms.</p>
+</div>
+<h2 id=conclusion>Conclusion</h2>
+<p>For <em>infrastructure-as-code</em>, taking a proactive approach by <em>shifting-left</em> and catching things in the build pipeline is the ultimate security. Today, many products tend to be <em>reactive</em> which seems to be the modus operandi of security. <a href=https://www.lightlytics.com/>Lightlytics</a> has created a solid foundation that can provide value to <em>CloudOps</em> and <em>Cloud SecOps</em> teams that want to go <strong>fast</strong> without leaving <strong>availability</strong> and <strong>security</strong> behind.</p>
+<p>As of writing this, <em>Lightlytics</em> has support for AWS but has <strong>multi-cloud</strong> on the roadmap. In addition to supporting additional clouds, the team is working to incorporate the ability to enforce custom-made, industry best practices, and business logic <em>(architectural standards)</em> as part of the GitOps flow. You can learn more about the <em>vision</em> and <em>team</em> <a href=https://www.lightlytics.com/about>here.</a></p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/github-actions/>github actions</a>
+<a href=/tags/infrastructure-as-code/>infrastructure-as-code</a>
+<a href=/tags/lightlytics/>lightlytics</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2022/are-microservices-better-than-monoliths/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Are Microservices Better Than Monoliths?</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2021/cryptocurrency-energy-and-proof-of-stake/>
+<span class="next-text nav-default">Cryptocurrency, Energy, and Proof-of-Stake</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=copyright-year>
+&copy;
+2020 -
+2022<span class=division> | </span>
+<span>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

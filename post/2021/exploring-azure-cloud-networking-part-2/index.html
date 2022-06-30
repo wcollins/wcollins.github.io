@@ -1,3 +1,300 @@
+<!doctype html><html lang=en>
 <head>
-...
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Exploring Azure Cloud Networking - (Part 2) - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="In Part 1, we went over some fundamentals. For Part 2, we will examine Azure network design patterns based on cloud maturity and organization size. The concept of design patterns was first introduced by Christopher Alexander and has profoundly influenced many technical disciplines.
+To keep things simple, let&amp;rsquo;s define a design pattern as a reusable solution to a commonly occurring problem. Of course, you are not the first practitioner out there transitioning to cloud or growing to a new maturity model.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2021/exploring-azure-cloud-networking-part-2/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Exploring Azure Cloud Networking - (Part 2)">
+<meta property="og:description" content="In Part 1, we went over some fundamentals. For Part 2, we will examine Azure network design patterns based on cloud maturity and organization size. The concept of design patterns was first introduced by Christopher Alexander and has profoundly influenced many technical disciplines.
+To keep things simple, let&rsquo;s define a design pattern as a reusable solution to a commonly occurring problem. Of course, you are not the first practitioner out there transitioning to cloud or growing to a new maturity model.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2021/exploring-azure-cloud-networking-part-2/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-04-28T13:11:59-04:00">
+<meta property="article:modified_time" content="2021-04-28T13:11:59-04:00">
+<meta itemprop=name content="Exploring Azure Cloud Networking - (Part 2)">
+<meta itemprop=description content="In Part 1, we went over some fundamentals. For Part 2, we will examine Azure network design patterns based on cloud maturity and organization size. The concept of design patterns was first introduced by Christopher Alexander and has profoundly influenced many technical disciplines.
+To keep things simple, let&rsquo;s define a design pattern as a reusable solution to a commonly occurring problem. Of course, you are not the first practitioner out there transitioning to cloud or growing to a new maturity model."><meta itemprop=datePublished content="2021-04-28T13:11:59-04:00">
+<meta itemprop=dateModified content="2021-04-28T13:11:59-04:00">
+<meta itemprop=wordCount content="1664">
+<meta itemprop=keywords content="azure,bgp,cloud routing,expressroute,hybrid cloud,private peering,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Exploring Azure Cloud Networking - (Part 2)">
+<meta name=twitter:description content="In Part 1, we went over some fundamentals. For Part 2, we will examine Azure network design patterns based on cloud maturity and organization size. The concept of design patterns was first introduced by Christopher Alexander and has profoundly influenced many technical disciplines.
+To keep things simple, let&rsquo;s define a design pattern as a reusable solution to a commonly occurring problem. Of course, you are not the first practitioner out there transitioning to cloud or growing to a new maturity model."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Exploring Azure Cloud Networking - (Part 2)</h1>
+<div class=post-meta>
+<span class=post-time> April 28, 2021 </span>
+<div class=post-category>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/cloud-architecture/> cloud architecture </a>
+<a href=/categories/cloud-networking/> cloud networking </a>
+<a href=/categories/design-patterns/> design patterns </a>
+</div>
+<span class=more-meta> 1664 words </span>
+<span class=more-meta> 8 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#patterns-overview>Patterns Overview</a>
+<ul>
+<li><a href=#cloud-adoption-framework-caf>Cloud Adoption Framework (CAF)</a></li>
+</ul>
+</li>
+<li><a href=#the-island>The Island</a>
+<ul>
+<li><a href=#island-1---first-pass>Island #1 - First Pass</a></li>
+<li><a href=#island-2---cloud-native>Island #2 - Cloud Native</a></li>
+</ul>
+</li>
+<li><a href=#hybrid>Hybrid</a>
+<ul>
+<li><a href=#hybrid-1---forced-tunneling>Hybrid #1 - Forced Tunneling</a></li>
+<li><a href=#hybrid-2---cloud-dmz>Hybrid #2 - Cloud DMZ</a></li>
+</ul>
+</li>
+<li><a href=#hub--spoke>Hub & Spoke</a>
+<ul>
+<li><a href=#centralized-hub>Centralized Hub</a></li>
+<li><a href=#spoke-to-spoke-routing>Spoke-To-Spoke Routing</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a>
+<ul>
+<li><a href=#acknowledgements>Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>In <a href=https://wcollins.io/post/2021/exploring-azure-cloud-networking-part-1/>Part 1</a>, we went over some fundamentals. For <em>Part 2</em>, we will examine <a href=https://azure.microsoft.com/en-us/>Azure</a> network design patterns based on <em>cloud maturity</em> and <em>organization size</em>. The concept of <a href=https://en.wikipedia.org/wiki/Design_pattern>design patterns</a> was first introduced by <a href=https://en.wikipedia.org/wiki/Christopher_Alexander>Christopher Alexander</a> and has profoundly influenced many <em>technical disciplines</em>.</p>
+<p>To keep things simple, let&rsquo;s define a <em>design pattern</em> as a <strong>reusable solution to a commonly occurring problem</strong>. Of course, you are not the first practitioner out there transitioning to <em>cloud</em> or growing to a new maturity model. Many trailblazers have already walked the walk and left behind beautiful <em>blueprints</em> to help you along the way.</p>
+<h2 id=patterns-overview>Patterns Overview</h2>
+<p>While every scenario may not fall under these categories, there are generally three <em>phases</em> that your cloud network may likely go through as your organization matures.</p>
+<ul>
+<li><strong>Island</strong> - Starting point or <em>cloud native</em> panacea; Disconnected from the enterprise network</li>
+<li><strong>Hybrid</strong> - Often inevitable (integration requirements); Connected to the enterprise network</li>
+<li><strong>Hub & Spoke</strong> - Stemmed by growth and need for centralized control; Increased governance</li>
+</ul>
+<h3 id=cloud-adoption-framework-caf>Cloud Adoption Framework (CAF)</h3>
+<p>The <a href=https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/enterprise-scale/network-topology-and-connectivity><strong>Cloud Adoption Framework (CAF)</strong></a> has been crafted using essential feedback from partners and customers. This provides an excellent place to start as you begin planning. Of course, you don&rsquo;t just land on the ideal design, but it helps to have a clear picture of where you are going.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/azure-caf.png alt="Azure - Cloud Adoption Framework"></p>
+<blockquote>
+<p>The Microsoft <a href=https://github.com/mspnp><strong>Patterns & Practices</strong></a> site is another good <em>Azure</em> specific resource for understanding proven patterns and reference architectures.</p>
+</blockquote>
+<h2 id=the-island>The Island</h2>
+<p><a href=https://www.merriam-webster.com/dictionary/island>Webster</a> defines <em>island</em> as <strong>":an isolated group or area"</strong>. There are a few variations of <strong>The Island</strong>, but one thing remains consistent; It has no connectivity to <em>on-premises</em> networks. This environment is completely isolated.</p>
+<h3 id=island-1---first-pass>Island #1 - First Pass</h3>
+<p>Every good story has a beginning. Many enterprises started their cloud journey many years back by simply setting up an account, doing some sandboxing, and just familiarizing themselves with the Cloud. You never know, one day that <em>sandbox</em> application could turn <em>Production</em> overnight! (Yes, I&rsquo;ve seen this happen)</p>
+<p>Usually, the <strong>first pass</strong> at a technology (especially as transformative as Cloud) isn&rsquo;t going to be perfect. There are a lot of things you don&rsquo;t know until you know. The main criteria that define our <em>first pass</em> at Cloud may include:</p>
+<ul>
+<li>Single <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview>Virtual Network</a>; All dependencies <em>self-contained</em></li>
+<li>Enterprise <strong>Apps and Data</strong> live in Data Centers (Owned or Colocation)</li>
+<li>No connectivity to <em>on-premises</em> networks; Environment is completely isolated</li>
+<li>Cloud Environment may not be under <em>centralized I.T.</em> control; They slow things down, right?</li>
+</ul>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/island-first-pass.png alt="Island - First Pass"></p>
+<h3 id=island-2---cloud-native>Island #2 - Cloud Native</h3>
+<p>We are getting this whole <em>cloud computing</em> thing down now. We are super mature around <em>security</em> and <em>governance</em>, and we want to take full advantage of Azure-specific services. In this scenario, we don&rsquo;t have any <em>hybrid</em> dependencies and focus on reliable and scalable infrastructure leveraging <em>cloud native</em> constructs in a single cloud-only. As a set of outcomes, this pattern aims to:</p>
+<ul>
+<li><a href="https://www.section.io/blog/scaling-horizontally-vs-vertically/#:~:text=Horizontal%20scaling%20means%20scaling%20by,as%20%E2%80%9Cscaling%20up%E2%80%9D"><strong>Scale Out</strong></a>.and not up; Optimize based on consumption</li>
+<li><a href=https://acloudguru.com/blog/engineering/why-and-how-do-we-build-a-multi-region-active-active-architecture><strong>Multi-Region</strong></a> <em>Active-Active</em> design; Non-blocking asynchronous communication</li>
+<li>Embrace <a href=https://blog.dreamfactory.com/stateful-vs-stateless-web-app-design/><strong>Stateless Application Design</strong></a>; Local state is considered an anti-pattern</li>
+<li>Use <strong>Internet</strong> as primary transport; State is shared between regions over <em>cloud backbone</em></li>
+</ul>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/island-cloud-native.png alt="Island - Cloud Native"></p>
+<blockquote>
+<p>Our Cloud-Native Island is a <em>best case scenario</em>, but also unlikely at first for the traditional enterprise. This takes into account that your data lives in the Cloud, and you aren&rsquo;t making any calls to backend services in your data centers. <a href="https://whatis.techtarget.com/definition/data-gravity#:~:text=Data%20gravity%20is%20the%20ability,(the%20amount%20of%20data).">Data Gravity</a> has proven to be a worthy antagonist in the quest to <em>cloud native</em>.</p>
+</blockquote>
+<h2 id=hybrid>Hybrid</h2>
+<p>Firstly, my definition of <em>Hybrid Cloud</em> is: <strong>Any workload that combines <em>public cloud</em> with an <em>on-premises</em> data center environment</strong>. Meaning, if for some reason, this public Cloud no longer has connectivity back to the data center, then the application(s) will not work.</p>
+<p>At some point, that Island is going to get a little lonely. How can you possibly migrate anything without a reliable connection to Azure? I will forego the <em>whiplash</em> that generally takes place at this point in the story. That beautiful moment we all remember when <strong>server, network, and security</strong> experts first get involved.</p>
+<p>So, we need a little bit of <em>hybrid</em> now. This is probably where things get the most complicated. There are many variations of <em>hybrid</em>, a plethora of options/considerations, and numerous maturity levels.</p>
+<h3 id=hybrid-1---forced-tunneling>Hybrid #1 - Forced Tunneling</h3>
+<p>Our first iteration of <em>hybrid</em> is met with much <em>skepticism</em> and minimal <em>trust</em>. This is why the obvious thing to do from the <strong>network and security</strong> space is to backhaul every packet to the data center to use existing routing, segmentation, deep packet inspection, file blocking, etc.</p>
+<p>This practice is known as <a href=https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-forced-tunneling-rm>Forced Tunneling</a>. It does precisely what is implied, e.g., it enables redirection of all traffic destined to the Internet back to your <em>on-premises</em> network.</p>
+<ul>
+<li>To accomplish this with <a href=https://docs.microsoft.com/en-us/azure/expressroute/expressroute-circuit-peerings#privatepeering>ExpressRoute - Private Peering</a>, advertise a default route from your <em>BGP speaker</em> and all traffic from the associated <em>virtual network</em> will be routed to your <em>on-premises</em> network.</li>
+<li>Doing this will force traffic from services offered by Microsoft like <a href=https://azure.microsoft.com/en-us/services/storage/>Azure Storage</a> back on-premises as well; You will have to account for return traffic via <a href=https://docs.microsoft.com/en-us/azure/expressroute/expressroute-circuit-peerings#microsoftpeering>Microsoft Peering</a> or the public Internet.</li>
+<li>If <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview>Service Endpoints</a> is configured, traffic is not forced on-premises and remains on Azure&rsquo;s backbone network.</li>
+</ul>
+<blockquote>
+<p>To accomplish <em>Forced Tunneling</em> over a <a href=https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-classic-portal>Site-to-Site VPN</a>, you would set up a <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#user-defined>User Defined Route</a> to set the default route to the <a href=https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways>Azure VPN Gateway</a>.</p>
+</blockquote>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/hybrid-forced-tunneling.png alt="Hybrid - Forced Tunneling"></p>
+<h3 id=hybrid-2---cloud-dmz>Hybrid #2 - Cloud DMZ</h3>
+<p>For workloads in the Cloud, it makes sense to reduce dependencies on-premises (especially Internet) and keep as much traffic as we can in Azure. Also, to continue meeting various <strong>security requirements</strong>, often deploying <a href=https://azure.microsoft.com/en-us/blog/best-practices-to-consider-before-deploying-a-network-virtual-appliance/>Network Virtual Appliances (NVAs)</a> will be necessary.</p>
+<p>A common practice that accommodates future growth is routing <strong>egress and ingress</strong> traffic through separate <a href=https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview>scale sets</a>. You can then use <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#user-defined>User Defined Routes</a> for limited traffic engineering. For example, traffic destined to the Internet would use the <em>private IP address</em> of an <a href=https://docs.microsoft.com/en-us/azure/load-balancer/components#frontend-ip-configurations>internal load balancer</a> as the <em>next-hop</em>.</p>
+<p>In this scenario, <strong>Ingress</strong> represents <em>inbound</em> connections into the <a href=https://en.wikipedia.org/wiki/DMZ_(computing)>DMZ</a> while <strong>Egress</strong> represents traffic <em>destined</em> to the internet. Another benefit of this design is additional throughput. <a href=https://docs.paloaltonetworks.com/vm-series/10-0/vm-series-performance-capacity/vm-series-performance-capacity/vm-series-on-azure-performance-and-capacity.html>VM-Series - Firewalls</a> have come a long way but still have limitations that you must consider. You might also consider deploying an additional <em>scale set</em> for <strong>Transitive</strong> routing in substantial deployments.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/hybrid-cloud-dmz.png alt="Hybrid - Cloud DMZ"></p>
+<blockquote>
+<p>NVAs must be deployed in <em>self-contained</em> subnets. Deploying an appliance in the same subnet as your <em>workloads</em> and attaching a UDR to that same subnet may cause a routing loop.</p>
+</blockquote>
+<h2 id=hub--spoke>Hub & Spoke</h2>
+<p>Until now, our patterns have been simple; Only a single <em>virtual network</em> has been referenced. In larger enterprises, this can get a little tricky. Over time as the Cloud grows, additional business units, centralized services, security, and even finance may start to leverage the Cloud. Sound <a href=https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/govern/methodology>governance</a> is critical in managing adoption.</p>
+<p>As consumption increases, <a href=https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/decision-guides/subscriptions/>subscriptions</a> will likely grow. It is generally a good practice to model these constructs to match your organization&rsquo;s hierarchy. As you follow this path, other <em>virtual networks</em> will be created. How is this challenge designed around while taking <em>scale and governance</em> in mind?</p>
+<h3 id=centralized-hub>Centralized Hub</h3>
+<p>Network practitioners are going to be very familiar with <em>Hub & Spoke</em>. Think about it like data center and branch office routing. We don&rsquo;t want prefixes to be visible randomly all across the network. Aggregation is our friend here.</p>
+<p>It is much more efficient to have summarization of routing for each site at the edge. It also makes sense to centralize certain services at the edge rather than deploy them at every office. Deploying <a href=https://www.paloaltonetworks.com/network-security/next-generation-firewall>NGFWs</a> at every site would become expensive and challenging to manage. Our cloud hub will follow this same pattern. Any shared services that will be used across all <em>spokes</em> will live here.</p>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/hub-spoke-overview.png alt="Hub & Spoke - Overview"></p>
+<h3 id=spoke-to-spoke-routing>Spoke-To-Spoke Routing</h3>
+<p>Now that multiple <em>virtual networks</em> are in play, how does traffic flow? Remember from <a href=https://wcollins.io/post/2021/exploring-azure-cloud-networking-part-1/#virtual-network-peering>Part 1</a> that VNets are <em>non-transitive</em>. For example, let&rsquo;s say we have <em>Spoke-A</em> and <em>Spoke-B</em> which are <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering>VNet peered</a> back to our hub. There have been two common approaches to solving this in the past:</p>
+<h4 id=on-premises--colo---routing>On-Premises / CoLo - Routing</h4>
+<p>This approach forwards traffic back to a physical device (That lives outside of Azure&rsquo;s Cloud) that knows how to route packets. This approach is usually the first iteration as, if you already have <em>hybrid</em> connectivity, then these devices are already reachable.</p>
+<ul>
+<li>The Hub <em>virtual network</em> is configured to <strong>allow gateway transit</strong>; This enables peered <em>virtual networks</em> to use any attached <em>virtual network gateways</em></li>
+<li>Each <em>spoke</em> should be configured to <strong>use remote gateways</strong>; This is required for traffic to use a gateway living in the <em>virtual network</em> you are peered with</li>
+<li>The router <em>on-premises</em> will handle any <em>spoke-to-spoke</em> routing; The existing <a href=https://en.wikipedia.org/wiki/Border_Gateway_Protocol>BGP</a> which was set up for <em>private peering</em> handles <em>dynamic routing</em></li>
+</ul>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/transit-routing-1.png alt="Transit Routing - Option 1"></p>
+<h4 id=network-virtual-appliance-nva---routing>Network Virtual Appliance (NVA) - Routing</h4>
+<p>Another option would be leveraging <a href=https://azure.microsoft.com/en-us/blog/best-practices-to-consider-before-deploying-a-network-virtual-appliance/>NVAs</a> existing in the <em>hub</em> to route traffic between spokes. If we already have the <strong>Cloud DMZ</strong> design deployed, you would use <a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#user-defined>UDRs</a> to redirect traffic.</p>
+<ul>
+<li>Each <em>subnet</em> requires a <em>UDR</em> to steer traffic</li>
+<li><strong>Destination</strong> matches the subnet prefix from the adjacent VNet</li>
+<li><strong>Next Hop Type</strong> will be defined as <em>Virtual Appliance</em> (<a href=https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#next-hop-types-across-azure-tools>Next Hop Options</a>)</li>
+<li>The <strong>Next Hop</strong> is the internal load balancer&rsquo;s private IP (If deployed in a <a href=https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview>scale set</a>)</li>
+</ul>
+<p><img src=/images/2021/exploring-azure-cloud-networking-part-2/transit-routing-2.png alt="Transit Routing - Option 2"></p>
+<h2 id=conclusion>Conclusion</h2>
+<p>Why not just use a <a href=https://azure.microsoft.com/en-us/services/web-application-firewall/>WAF</a> for <strong>Inbound</strong> connections and <a href=https://docs.microsoft.com/en-us/azure/firewall/overview>Azure Firewall</a> for <strong>Outbound</strong>? It all comes down to what requirements you are working with and the capabilities needed to meet them.</p>
+<p><strong>NextGen Firewalls</strong> have more capabilities today and are also being used heavily in the enterprise. Many will opt to extend these capabilities into the Cloud. Microsoft currently has <a href=https://docs.microsoft.com/en-us/azure/firewall/overview#azure-firewall-premium-preview>Azure Firewall - Premium</a> in <em>Public Preview</em>, which should close the gap a little more.</p>
+<p>If this material was valuable, check out <a href=https://wcollins.io/post/2021/exploring-azure-cloud-networking-part-1/>Part 1</a> to learn more about the fundamentals. In <em>Part 3</em>, we will dig into <a href=https://azure.microsoft.com/en-us/services/expressroute/>ExpressRoute</a> design along with breaking down a few things I wish I would have known before jumping in the <em>deep-end</em>.</p>
+<h3 id=acknowledgements>Acknowledgements</h3>
+<p>Big thanks to the wise and resourceful <a href=https://www.linkedin.com/in/sthawkins/>Steven Hawkins</a> for taking the time to peer review this post. Your feedback is always insightful and appreciated.</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/azure/>azure</a>
+<a href=/tags/bgp/>bgp</a>
+<a href=/tags/cloud-routing/>cloud routing</a>
+<a href=/tags/expressroute/>expressroute</a>
+<a href=/tags/hybrid-cloud/>hybrid cloud</a>
+<a href=/tags/private-peering/>private peering</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2021/understanding-the-world-of-bitcoin/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Understanding The World Of Bitcoin</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2021/exploring-azure-cloud-networking-part-1/>
+<span class="next-text nav-default">Exploring Azure Cloud Networking - (Part 1)</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=copyright-year>
+&copy;
+2020 -
+2022<span class=division> | </span>
+<span>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

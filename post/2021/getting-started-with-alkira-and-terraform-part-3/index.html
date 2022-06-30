@@ -1,3 +1,259 @@
+<!doctype html><html lang=en>
 <head>
-...
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Getting Started With Alkira And Terraform (Part 3) - </title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="William Collins"><meta name=description content="Check out Part 1 and Part 2 where we put together a scalable foundation and connect cloud networks from AWS, Azure, and GCP. For Part 3, we will bring on-premises back into the spotlight and connect some sites over Cisco SD-WAN and IPSEC.
+On-premises remains a strong focus for many enterprises through 2021 going into 2022. Some workloads, as noted by Amazon CEO Andy Jassy, may never move to the cloud.">
+<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
+<meta name=generator content="Hugo 0.87.0 with theme even">
+<link rel=canonical href=http://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-3/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Getting Started With Alkira And Terraform (Part 3)">
+<meta property="og:description" content="Check out Part 1 and Part 2 where we put together a scalable foundation and connect cloud networks from AWS, Azure, and GCP. For Part 3, we will bring on-premises back into the spotlight and connect some sites over Cisco SD-WAN and IPSEC.
+On-premises remains a strong focus for many enterprises through 2021 going into 2022. Some workloads, as noted by Amazon CEO Andy Jassy, may never move to the cloud.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-3/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-10-14T07:53:57-04:00">
+<meta property="article:modified_time" content="2021-10-14T07:53:57-04:00">
+<meta itemprop=name content="Getting Started With Alkira And Terraform (Part 3)">
+<meta itemprop=description content="Check out Part 1 and Part 2 where we put together a scalable foundation and connect cloud networks from AWS, Azure, and GCP. For Part 3, we will bring on-premises back into the spotlight and connect some sites over Cisco SD-WAN and IPSEC.
+On-premises remains a strong focus for many enterprises through 2021 going into 2022. Some workloads, as noted by Amazon CEO Andy Jassy, may never move to the cloud."><meta itemprop=datePublished content="2021-10-14T07:53:57-04:00">
+<meta itemprop=dateModified content="2021-10-14T07:53:57-04:00">
+<meta itemprop=wordCount content="578">
+<meta itemprop=keywords content="alkira,aws,azure,gcp,ipsec,immutability,infrastructure-as-code,terraform,terraform cloud,terraform,segmentation,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Getting Started With Alkira And Terraform (Part 3)">
+<meta name=twitter:description content="Check out Part 1 and Part 2 where we put together a scalable foundation and connect cloud networks from AWS, Azure, and GCP. For Part 3, we will bring on-premises back into the spotlight and connect some sites over Cisco SD-WAN and IPSEC.
+On-premises remains a strong focus for many enterprises through 2021 going into 2022. Some workloads, as noted by Amazon CEO Andy Jassy, may never move to the cloud."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo></a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>About</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo></a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>About</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Getting Started With Alkira And Terraform (Part 3)</h1>
+<div class=post-meta>
+<span class=post-time> October 14, 2021 </span>
+<div class=post-category>
+<a href=/categories/automation/> automation </a>
+<a href=/categories/cloud/> cloud </a>
+<a href=/categories/cloud-networking/> cloud-networking </a>
+<a href=/categories/cloud-security/> cloud-security </a>
+<a href=/categories/multi-cloud/> multi-cloud </a>
+<a href=/categories/sd-wan/> sd-wan </a>
+<a href=/categories/tools/> tools </a>
+</div>
+<span class=more-meta> 578 words </span>
+<span class=more-meta> 3 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#scenario>Scenario</a>
+<ul>
+<li><a href=#resources>Resources</a></li>
+</ul>
+</li>
+<li><a href=#connecting-on-premises>Connecting On-Premises</a>
+<ul>
+<li><a href=#terraform-cloud>Terraform Cloud</a></li>
+<li><a href=#ipsec-connectors>IPSEC Connectors</a></li>
+<li><a href=#sd-wan-connectors>SD-WAN Connectors</a></li>
+</ul>
+</li>
+<li><a href=#conclusion>Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>Check out <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-1/>Part 1</a> and <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-2/>Part 2</a> where we put together a scalable foundation and connect cloud networks from AWS, Azure, and GCP. For <em>Part 3</em>, we will bring on-premises back into the spotlight and connect some sites over <a href=https://www.cisco.com/c/en/us/solutions/enterprise-networks/sd-wan/index.html>Cisco SD-WAN</a> and IPSEC.</p>
+<p>On-premises remains a strong focus for many enterprises through <em>2021</em> going into <em>2022</em>. Some workloads, as noted by <a href=https://cloudwars.co/amazon/amazon-shocker-ceo-jassy-cloud-less-than-5-percent-it-spending/>Amazon CEO Andy Jassy</a>, may never move to the cloud. While this may seem like a shocker, if continuing to run specific workloads on-premises makes sense from a cost or compliance standpoint, why should they move?</p>
+<h2 id=scenario>Scenario</h2>
+<p>Let&rsquo;s expand on our network design layout from <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-2/>Part 2</a> and add some requirements for our on-premises networks. For this example, my SD-WAN fabric consists of two data centers + HQ in the East region which, will have connectivity extended to my East <em>CXP</em>. Three smaller sites will get connected directly via IPSEC.</p>
+<ul>
+<li>Sites with <strong>&lt;= 10 users</strong> will connect into Alkira&rsquo;s <em>CXP</em> over IPSEC</li>
+<li>All other sites are on Cisco&rsquo;s SD-WAN fabric and get extended into the <em>CXP</em></li>
+</ul>
+<blockquote>
+<p>In the enterprise space, connectivity can be handled in numerous ways. For instance, many enterprises may want or already have <a href=https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html>AWS Direct Connect</a>, specifically for its bandwidth and performance. Alkira makes it simple to leverage existing options to connect data centers and sites to <em>Cloud Exchange Points</em> meeting enterprise networking where it lives today and providing a path forward to elastic networks of the future.</p>
+</blockquote>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-3/topology.png alt=Topology></p>
+<h3 id=resources>Resources</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/credential_cisco_sdwan>alkira_credential_cisco_sdwan</a></td>
+<td>resource</td>
+<td>Provision Cisco SD-WAN Credential</td>
+</tr>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/connector_cisco_sdwan>alkira_connector_cisco_sdwan</a></td>
+<td>resource</td>
+<td>Provision Cisco SD-WAN Connector</td>
+</tr>
+<tr>
+<td><a href=https://registry.terraform.io/providers/alkiranet/alkira/latest/docs/resources/connector_ipsec>alkira_connector_ipsec</a></td>
+<td>resource</td>
+<td>Provision IPSEC Connector</td>
+</tr>
+</tbody>
+</table>
+<h2 id=connecting-on-premises>Connecting On-Premises</h2>
+<p>A great deal of focus has been placed on the cloud over the past five years. However, for large enterprises, migrating and modernizing applications using the public cloud isn&rsquo;t as simple as a project, program, or <strong>throwing lots of cash down to get it done in a year</strong> exercise. Playing the <em>long-game</em> is critical, and on-premises shouldn&rsquo;t be ignored.</p>
+<h3 id=terraform-cloud>Terraform Cloud</h3>
+<p>Like <em>Part 1</em> and <em>Part 2</em>, I used <a href=https://www.terraform.io/cloud>Terraform Cloud</a> for provisioning. I&rsquo;m going to forgo explanation in this post to minimize repetition. To get a better understanding of how I organized things, <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-2/#organizing-things>check this out.</a></p>
+<h3 id=ipsec-connectors>IPSEC Connectors</h3>
+<p><a href=https://en.wikipedia.org/wiki/IPsec>IPSEC</a> can be set up with <em>static</em> or <em>dynamic</em> routing via <em>route based</em> VPN mode. Connecting sites to Alkira consists of defining the <em>connector</em> along with each <em>endpoint</em> that should be associated with it.</p>
+<p><strong>ipsec_connector.tf</strong>
+<script type=application/javascript src=https://gist.github.com/wcollins/8124a824f646a13efe547f96a30d581f.js></script>
+</p>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-3/provision_ipsec.gif alt="Provision IPSEC"></p>
+<h3 id=sd-wan-connectors>SD-WAN Connectors</h3>
+<p>Extending the Cisco SD-WAN fabric into Alkira consists of defining the <em>connector</em>, <em>endpoints</em>, and the <em>bootstrap file</em> from <a href=https://www.cisco.com/c/en/us/solutions/enterprise-networks/sd-wan/vmanage.html>Cisco vManage</a>. The SD-WAN fabric will then be extended into one or more <em>Cloud Exchange Points</em>, enabling regional hand-offs between the two.</p>
+<p><strong>cisco_sdwan_connector.tf</strong>
+<script type=application/javascript src=https://gist.github.com/wcollins/af65db10c1c99861fef7c2dc2d4c288a.js></script>
+</p>
+<p><img src=/images/2021/getting-started-with-alkira-and-terraform-part-3/provision_sdwan.gif alt="Provision SD-WAN"></p>
+<blockquote>
+<p>I used <a href=https://www.cisco.com/c/en/us/solutions/enterprise-networks/sd-wan/what-is-sd-wan.html>Cisco SD-WAN</a> for this post. Today, all three node types (<em>CSR</em>, <em>vEdge</em>, and <em>CAT8000v</em>) are supported. Alkira continually adds new partner integrations, like <a href=https://www.arubanetworks.com/products/sd-wan/edgeconnect/>Aruba EdgeConnect</a> so keep a lookout for new product announcements</p>
+</blockquote>
+<h2 id=conclusion>Conclusion</h2>
+<p>In <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-1/>Part 1</a>, we built a scalable foundation, and in <a href=https://wcollins.io/post/2021/getting-started-with-alkira-and-terraform-part-2/>Part 2</a>, we connected networks to that foundation from <em>AWS</em>, <em>Azure</em>, and <em>GCP</em>. This post brought data centers and remote offices into the picture over <strong>IPSEC</strong> and <strong>SD-WAN</strong>.</p>
+<p>Now that we have all of these networks connected, what about policy and service insertion? To be helpful to enterprises adopting cloud, limiting communication to and across clouds and on-premises is a given. Also, selectively steering specific traffic through <a href=https://docs.paloaltonetworks.com/vm-series/9-1/vm-series-deployment/about-the-vm-series-firewall.html>VM-Series Firewalls</a> should be a trivial task. In <em>Part 4</em>, we will define policies in code and use <a href=https://alkira.com>Alkira&rsquo;s</a> design canvas to validate.</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/alkira/>alkira</a>
+<a href=/tags/aws/>aws</a>
+<a href=/tags/azure/>azure</a>
+<a href=/tags/gcp/>gcp</a>
+<a href=/tags/ipsec/>ipsec</a>
+<a href=/tags/immutability/>immutability</a>
+<a href=/tags/infrastructure-as-code/>infrastructure-as-code</a>
+<a href=/tags/terraform/>terraform</a>
+<a href=/tags/terraform-cloud/>terraform cloud</a>
+<a href=/tags/terraform/>terraform</a>
+<a href=/tags/segmentation/>segmentation</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/2021/getting-started-with-alkira-and-terraform-part-4/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">Getting Started With Alkira And Terraform (Part 4)</span>
+<span class="prev-text nav-mobile">Prev</span>
+</a>
+<a class=next href=/post/2021/getting-started-with-alkira-and-terraform-part-2/>
+<span class="next-text nav-default">Getting Started With Alkira And Terraform (Part 2)</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
+<a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=copyright-year>
+&copy;
+2020 -
+2022<span class=division> | </span>
+<span>William Collins</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>
