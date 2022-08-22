@@ -1,265 +1,35 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>Cloud Grade Automation With Packer and Terraform - </title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="William Collins"><meta name=description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&amp;rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
-Let&amp;rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud.">
-<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
-<meta name=generator content="Hugo 0.87.0 with theme even">
-<link rel=canonical href=http://wcollins.io/post/2021/cloud-grade-automation-with-packer-and-terraform/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="Cloud Grade Automation With Packer and Terraform">
-<meta property="og:description" content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
-Let&rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="http://wcollins.io/post/2021/cloud-grade-automation-with-packer-and-terraform/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2021-02-08T12:32:29-05:00">
-<meta property="article:modified_time" content="2021-02-08T12:32:29-05:00">
-<meta itemprop=name content="Cloud Grade Automation With Packer and Terraform">
-<meta itemprop=description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
-Let&rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud."><meta itemprop=datePublished content="2021-02-08T12:32:29-05:00">
-<meta itemprop=dateModified content="2021-02-08T12:32:29-05:00">
-<meta itemprop=wordCount content="978">
-<meta itemprop=keywords content="azure,iaas,immutability,linux,packer,terraform,ubuntu,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Cloud Grade Automation With Packer and Terraform">
-<meta name=twitter:description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Cloud Grade Automation With Packer and Terraform -</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="William Collins"><meta name=description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&amp;rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
+Let&amp;rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud."><meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU"><meta name=generator content="Hugo 0.101.0 with theme even"><link rel=canonical href=http://wcollins.io/post/2021/cloud-grade-automation-with-packer-and-terraform/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Cloud Grade Automation With Packer and Terraform"><meta property="og:description" content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
+Let&rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud."><meta property="og:type" content="article"><meta property="og:url" content="http://wcollins.io/post/2021/cloud-grade-automation-with-packer-and-terraform/"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-02-08T12:32:29-05:00"><meta property="article:modified_time" content="2021-02-08T12:32:29-05:00"><meta itemprop=name content="Cloud Grade Automation With Packer and Terraform"><meta itemprop=description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
+Let&rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud."><meta itemprop=datePublished content="2021-02-08T12:32:29-05:00"><meta itemprop=dateModified content="2021-02-08T12:32:29-05:00"><meta itemprop=wordCount content="978"><meta itemprop=keywords content="azure,iaas,immutability,linux,packer,terraform,ubuntu,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Cloud Grade Automation With Packer and Terraform"><meta name=twitter:description content="Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. Hashicorp has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.
 Let&rsquo;s examine image lifecycle management and IaaS deployment. Both of these tasks are common challenges faced by the enterprise when moving to the cloud."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
-</head>
-<body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo></a>
-</div>
-<div class=mobile-navbar-icon>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo></a></div><div class=mobile-navbar-icon><span></span>
 <span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>Home</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>About</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>Archives</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>Tags</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>Categories</li>
-</a>
-</ul>
-</nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo></a>
-</div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>Home</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>About</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>Archives</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>Tags</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>Categories</a>
-</li>
-</ul>
-</nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>Cloud Grade Automation With Packer and Terraform</h1>
-<div class=post-meta>
-<span class=post-time> February 8, 2021 </span>
-<div class=post-category>
-<a href=/categories/automation/> automation </a>
-<a href=/categories/cloud/> cloud </a>
-<a href=/categories/tools/> tools </a>
-</div>
-<span class=more-meta> 978 words </span>
-<span class=more-meta> 5 mins read </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>Contents</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#what-is-cloud-grade-automation>What Is Cloud Grade Automation?</a></li>
-<li><a href=#evolving-automation>Evolving Automation</a>
-<ul>
-<li><a href=#runtime---mutable>Runtime - (Mutable)</a></li>
-<li><a href=#build-time---immutable>Build-time - (Immutable)</a></li>
-</ul>
-</li>
-<li><a href=#getting-started-with-packer>Getting Started With Packer</a>
-<ul>
-<li><a href=#building-a-machine-image>Building A Machine Image</a></li>
-</ul>
-</li>
-<li><a href=#getting-started-with-terraform>Getting Started With Terraform</a>
-<ul>
-<li><a href=#deploying-some-infrastructure>Deploying Some Infrastructure</a></li>
-</ul>
-</li>
-<li><a href=#conclusion>Conclusion</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-<div class=post-content>
-<p>Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. <a href=https://www.hashicorp.com/>Hashicorp</a> has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.</p>
-<p>Let&rsquo;s examine <em>image lifecycle management</em> and <em>IaaS deployment</em>. Both of these tasks are common challenges faced by the <em>enterprise</em> when moving to the cloud. Using <a href=https://www.packer.io/>Packer</a>, we can <em>automate</em> the build process for images and then deploy common infrastructure and <a href=https://azure.microsoft.com/en-us/services/virtual-machines/>virtual machines</a> with <a href=https://www.terraform.io/>Terraform</a>.</p>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/cloud-grade-intro.png alt="Cloud Grade Intro"></p>
-<h2 id=what-is-cloud-grade-automation>What Is Cloud Grade Automation?</h2>
-<p>I started using this expression as a <em>catch phrase</em> some time back, mainly in Powerpoint slides. The way I would describe its meaning goes well beyond a single tool, process, or methodology. To me, it embodies the core guiding principles for cloud and application delivery in today&rsquo;s landscape. Let&rsquo;s start with the outcomes we are aiming for:</p>
-<ul>
-<li>Loosely coupled application architecture; Cloud Native</li>
-<li>Infrastructure hosting a given application is delivered intact</li>
-<li>Infrastructure is never touched, changed, or otherwise modified in any way</li>
-<li>When changes are necessary, the environment is re-deployed from the newest artifact</li>
-<li>Rollback occurs in the same way except with an older versioned artifact</li>
-</ul>
-<p>The culture, tooling, process, and delivery that can achieve these outcomes, is my impression of what <em>Cloud Grade Automation</em> is. I&rsquo;ll be focusing specifically on the tooling and delivery in this post.</p>
-<h2 id=evolving-automation>Evolving Automation</h2>
-<p>Automation can typically be handled at two different stages of a given <em>workflow</em>. Choosing which stage can ultimately drive <em>operational</em> decisions. As application architectures have evolved, the automation used to build the infrastructure has transformed. Complexity has largely shifted from <em>runtime</em> to <em>build-time</em>.</p>
-<h3 id=runtime---mutable>Runtime - (Mutable)</h3>
-<p>When we think <em>automation</em>, folks that have been around a while typically think in terms of <em>mutable</em>. This means we deploy our server and then configure, update, or modify it <em>in-place</em>. I have seen anything from scripts (Shell, Perl, and Python) to configuration management tools like <a href=https://www.ansible.com/>Ansible</a>, <a href=https://www.chef.io/>Chef</a> and <a href=https://puppet.com/>Puppet</a> used to accomplish this.</p>
-<blockquote>
-<p><a href=https://www.merriam-webster.com/dictionary/mutable>Webster</a> defines <em>mutable</em> as <strong>":prone to change: INCONSTANT"</strong>.</p>
-</blockquote>
-<p>To further expand on <em>runtime</em> configuration, let&rsquo;s take the example of installing an agent-based solution. For the sake of demonstration, let&rsquo;s say that each virtual machine provisioned in our infrastructure requires running <a href=https://www.thousandeyes.com/product/enterprise-agents>ThousandEyes - Enterprise Agents</a> for monitoring.</p>
-<ul>
-<li>A <em>greenfield</em> application is getting developed; New infrastructure is required (Develop)</li>
-<li>The new server (or multiple servers) are provisioned for the application to run on (Deploy)</li>
-<li>Config Management tooling applies the standard configuration, including the Agent (Configure)</li>
-</ul>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/mutable-workflow.png alt="Mutable Workflow"></p>
-<p><em>Mutable</em> infrastructure is susceptible to <em>configuration drift</em>. As individual changes get applied on servers throughout their lifecycle, the configuration will significantly differ from the <em>desired state</em> and other servers across the environment.</p>
-<h3 id=build-time---immutable>Build-time - (Immutable)</h3>
-<p><em>Immutable</em> infrastructure aims to reduce the number of moving pieces at <em>runtime</em>. Handling infrastructure this way speeds up delivery, eliminates configuration drift, increases environment consistency, optimizes rollback, and simplifies horizontal scaling.</p>
-<blockquote>
-<p><a href=https://www.merriam-webster.com/dictionary/immutable>Webster</a> defines <em>immutable</em> as <strong>":not capable of or susceptible to change"</strong>.</p>
-</blockquote>
-<p>To further expand on <em>build-time</em> configuration, let&rsquo;s take the same example used above:</p>
-<ul>
-<li>A <em>greenfield</em> application is getting developed; New infrastructure is required (Develop)</li>
-<li>The standard configuration and <em>Enterprise Agent</em> get packaged at build-time (Configure)</li>
-<li>Infrastructure is provisioned using the machine template and deployed at <em>runtime</em> (Deploy)</li>
-</ul>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/immutable-workflow.png alt="Immutable Workflow"></p>
-<p>Building <em>immutable</em> infrastructure can be a significant undertaking when considering the transition of <em>brownfield</em> applications. One dependency ensures that the <em>application layer</em> remains <a href=https://en.wikipedia.org/wiki/Service_statelessness_principle>stateless</a>, including servers. Anything at this level should and will be consistently destroyed and rebuilt.</p>
-<h2 id=getting-started-with-packer>Getting Started With Packer</h2>
-<p><a href=https://www.packer.io/>Packer</a> automates the creation of any machine image. Once the image is packaged, it can then be provisioned with Terraform. While this is the new, modern, cool, and cloud way to accomplish this, other methods have existed for a very long time. Back in 2014, I was doing <em>non-interactive</em> installs of various Linux distributions on <a href=https://www.linux-kvm.org/page/Main_Page>Linux KVM</a> with <a href=https://libvirt.org/manpages/virsh.html>virsh</a> and <a href=https://linux.die.net/man/1/virt-install>virt-install</a>. Virt-install would use <em>libvirt&rsquo;s</em> streaming API to upload the kernel and modified <em>initrd</em> to the remote host.</p>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/packer-overview.png alt="Packer Overview"></p>
-<h3 id=building-a-machine-image>Building A Machine Image</h3>
-<p>As an example, let&rsquo;s package an <a href=https://releases.ubuntu.com/18.04/>Ubuntu 18.04</a> image with a <a href=https://www.thousandeyes.com/product/enterprise-agents>ThousandEyes - Agent</a>. Although an overly simplistic example, it should demonstrate our desired intent and behavior. Demo code can be found <a href=https://github.com/wcollins/packer-azure-demo-linux>here.</a></p>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/packer-build.gif alt="Packer Build"></p>
-<p><a href=https://github.com/wcollins/packer-azure-demo-linux/blob/master/ubuntu-18.04-LTS.json><strong>ubuntu-18.04-LTS.json</strong></a>
-<script type=application/javascript src=https://gist.github.com/wcollins/d795c88016310886d0bce209004e6636.js></script>
-</p>
-<blockquote>
-<p>Instead of using the <em>shell</em> provisioner to deploy the agent (see line 35 in the template), a more elegant method would call the <strong>&ldquo;type&rdquo;: &ldquo;ansible&rdquo;</strong> provisioner pointing to a <strong>playbook.yml</strong> file in the repository. This would allow you to separate packages into separate playbooks managed in <em>version control</em>.</p>
-</blockquote>
-<h2 id=getting-started-with-terraform>Getting Started With Terraform</h2>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/terraform-overview.png alt="Terraform Overview"></p>
-<p><a href=https://www.terraform.io/>Terraform</a> codifies cloud APIs into declarative configuration files. If you want to create reproducible infrastructure for consistent testing, staging, and production environments with the same configuration, look no further! While it&rsquo;s generally not that simple, Terraform does seem to be the <em>defacto</em> tool these days for <em>Infrastructure as Code</em> in the cloud.</p>
-<h3 id=deploying-some-infrastructure>Deploying Some Infrastructure</h3>
-<p>Let&rsquo;s deploy some foundational infrastructure along with a <a href=https://azure.microsoft.com/en-us/services/virtual-machines/>virtual machine</a> provisioned from the <em>machine image</em> we built above with Packer. Demo code can be found <a href=https://github.com/wcollins/terraform-azure-demo-vm>here.</a></p>
-<p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/terraform-deploy.gif alt="Terraform Deploy"></p>
-<p><a href=https://github.com/wcollins/terraform-azure-demo-vm/blob/master/main.tf><strong>main.tf</strong></a>
-<script type=application/javascript src=https://gist.github.com/wcollins/20de391d07fb186ce7ce200b769b9acd.js></script>
-</p>
-<blockquote>
-<p>This template is an example. In practice, this would probably be broken up into at least two distinct modules (network and compute). If specific groups of resources have a similar life cycle, you would probably create a module for them. An example of this might be core network components like VNets, Subnets, and UDRs.</p>
-</blockquote>
-<h2 id=conclusion>Conclusion</h2>
-<p>Learning to use <a href=https://packer.io>Packer</a> or writing <a href=https://terraform.io>Terraform</a> templates is a tiny piece of a vast puzzle. If the desired outcome is <a href=https://https://aws.amazon.com/devops/continuous-delivery/>Continuous Delivery</a> then application architecture, cultural philosophies, and <a href="https://https://en.wikipedia.org/wiki/Release_management#:~:text=Release%20management%20is%20the%20process,testing%20and%20deploying%20software%20releases.">release management</a> all play equally important roles.</p>
-<p>Enterprise Leaders all want <a href="https://https://en.wikipedia.org/wiki/DevOps#:~:text=DevOps%20is%20a%20set%20of,delivery%20with%20high%20software%20quality.">DevOps</a> for the benefits of automation, quicker releases, reduced downtime, reliable recovery from disasters, and cost benefits in the cloud <strong>(That last one makes me chuckle)</strong>. The real question is, will they do what is necessary to buck traditional culture and adopt truly immutable infrastructure?</p>
-</div>
-<footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/azure/>azure</a>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo></a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Cloud Grade Automation With Packer and Terraform</h1><div class=post-meta><span class=post-time>February 8, 2021</span><div class=post-category><a href=/categories/automation/>automation</a>
+<a href=/categories/cloud/>cloud</a>
+<a href=/categories/tools/>tools</a></div><span class=more-meta>978 words</span>
+<span class=more-meta>5 mins read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#what-is-cloud-grade-automation>What Is Cloud Grade Automation?</a></li><li><a href=#evolving-automation>Evolving Automation</a><ul><li><a href=#runtime---mutable>Runtime - (Mutable)</a></li><li><a href=#build-time---immutable>Build-time - (Immutable)</a></li></ul></li><li><a href=#getting-started-with-packer>Getting Started With Packer</a><ul><li><a href=#building-a-machine-image>Building A Machine Image</a></li></ul></li><li><a href=#getting-started-with-terraform>Getting Started With Terraform</a><ul><li><a href=#deploying-some-infrastructure>Deploying Some Infrastructure</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li></ul></li></ul></nav></div></div><div class=post-content><p>Manually provisioning infrastructure slows down application delivery, isolates knowledge, can hamper operations teams, and doesn&rsquo;t scale. Automating infrastructure provisioning can address these challenges by shifting manual process into code. <a href=https://www.hashicorp.com/>Hashicorp</a> has products spanning the infrastructure, security, and application stack that can unlock that cloud operating model and deliver applications faster.</p><p>Let&rsquo;s examine <em>image lifecycle management</em> and <em>IaaS deployment</em>. Both of these tasks are common challenges faced by the <em>enterprise</em> when moving to the cloud. Using <a href=https://www.packer.io/>Packer</a>, we can <em>automate</em> the build process for images and then deploy common infrastructure and <a href=https://azure.microsoft.com/en-us/services/virtual-machines/>virtual machines</a> with <a href=https://www.terraform.io/>Terraform</a>.</p><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/cloud-grade-intro.png alt="Cloud Grade Intro"></p><h2 id=what-is-cloud-grade-automation>What Is Cloud Grade Automation?</h2><p>I started using this expression as a <em>catch phrase</em> some time back, mainly in Powerpoint slides. The way I would describe its meaning goes well beyond a single tool, process, or methodology. To me, it embodies the core guiding principles for cloud and application delivery in today&rsquo;s landscape. Let&rsquo;s start with the outcomes we are aiming for:</p><ul><li>Loosely coupled application architecture; Cloud Native</li><li>Infrastructure hosting a given application is delivered intact</li><li>Infrastructure is never touched, changed, or otherwise modified in any way</li><li>When changes are necessary, the environment is re-deployed from the newest artifact</li><li>Rollback occurs in the same way except with an older versioned artifact</li></ul><p>The culture, tooling, process, and delivery that can achieve these outcomes, is my impression of what <em>Cloud Grade Automation</em> is. I&rsquo;ll be focusing specifically on the tooling and delivery in this post.</p><h2 id=evolving-automation>Evolving Automation</h2><p>Automation can typically be handled at two different stages of a given <em>workflow</em>. Choosing which stage can ultimately drive <em>operational</em> decisions. As application architectures have evolved, the automation used to build the infrastructure has transformed. Complexity has largely shifted from <em>runtime</em> to <em>build-time</em>.</p><h3 id=runtime---mutable>Runtime - (Mutable)</h3><p>When we think <em>automation</em>, folks that have been around a while typically think in terms of <em>mutable</em>. This means we deploy our server and then configure, update, or modify it <em>in-place</em>. I have seen anything from scripts (Shell, Perl, and Python) to configuration management tools like <a href=https://www.ansible.com/>Ansible</a>, <a href=https://www.chef.io/>Chef</a> and <a href=https://puppet.com/>Puppet</a> used to accomplish this.</p><blockquote><p><a href=https://www.merriam-webster.com/dictionary/mutable>Webster</a> defines <em>mutable</em> as <strong>":prone to change: INCONSTANT"</strong>.</p></blockquote><p>To further expand on <em>runtime</em> configuration, let&rsquo;s take the example of installing an agent-based solution. For the sake of demonstration, let&rsquo;s say that each virtual machine provisioned in our infrastructure requires running <a href=https://www.thousandeyes.com/product/enterprise-agents>ThousandEyes - Enterprise Agents</a> for monitoring.</p><ul><li>A <em>greenfield</em> application is getting developed; New infrastructure is required (Develop)</li><li>The new server (or multiple servers) are provisioned for the application to run on (Deploy)</li><li>Config Management tooling applies the standard configuration, including the Agent (Configure)</li></ul><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/mutable-workflow.png alt="Mutable Workflow"></p><p><em>Mutable</em> infrastructure is susceptible to <em>configuration drift</em>. As individual changes get applied on servers throughout their lifecycle, the configuration will significantly differ from the <em>desired state</em> and other servers across the environment.</p><h3 id=build-time---immutable>Build-time - (Immutable)</h3><p><em>Immutable</em> infrastructure aims to reduce the number of moving pieces at <em>runtime</em>. Handling infrastructure this way speeds up delivery, eliminates configuration drift, increases environment consistency, optimizes rollback, and simplifies horizontal scaling.</p><blockquote><p><a href=https://www.merriam-webster.com/dictionary/immutable>Webster</a> defines <em>immutable</em> as <strong>":not capable of or susceptible to change"</strong>.</p></blockquote><p>To further expand on <em>build-time</em> configuration, let&rsquo;s take the same example used above:</p><ul><li>A <em>greenfield</em> application is getting developed; New infrastructure is required (Develop)</li><li>The standard configuration and <em>Enterprise Agent</em> get packaged at build-time (Configure)</li><li>Infrastructure is provisioned using the machine template and deployed at <em>runtime</em> (Deploy)</li></ul><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/immutable-workflow.png alt="Immutable Workflow"></p><p>Building <em>immutable</em> infrastructure can be a significant undertaking when considering the transition of <em>brownfield</em> applications. One dependency ensures that the <em>application layer</em> remains <a href=https://en.wikipedia.org/wiki/Service_statelessness_principle>stateless</a>, including servers. Anything at this level should and will be consistently destroyed and rebuilt.</p><h2 id=getting-started-with-packer>Getting Started With Packer</h2><p><a href=https://www.packer.io/>Packer</a> automates the creation of any machine image. Once the image is packaged, it can then be provisioned with Terraform. While this is the new, modern, cool, and cloud way to accomplish this, other methods have existed for a very long time. Back in 2014, I was doing <em>non-interactive</em> installs of various Linux distributions on <a href=https://www.linux-kvm.org/page/Main_Page>Linux KVM</a> with <a href=https://libvirt.org/manpages/virsh.html>virsh</a> and <a href=https://linux.die.net/man/1/virt-install>virt-install</a>. Virt-install would use <em>libvirt&rsquo;s</em> streaming API to upload the kernel and modified <em>initrd</em> to the remote host.</p><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/packer-overview.png alt="Packer Overview"></p><h3 id=building-a-machine-image>Building A Machine Image</h3><p>As an example, let&rsquo;s package an <a href=https://releases.ubuntu.com/18.04/>Ubuntu 18.04</a> image with a <a href=https://www.thousandeyes.com/product/enterprise-agents>ThousandEyes - Agent</a>. Although an overly simplistic example, it should demonstrate our desired intent and behavior. Demo code can be found <a href=https://github.com/wcollins/packer-azure-demo-linux>here.</a></p><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/packer-build.gif alt="Packer Build"></p><p><a href=https://github.com/wcollins/packer-azure-demo-linux/blob/master/ubuntu-18.04-LTS.json><strong>ubuntu-18.04-LTS.json</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/d795c88016310886d0bce209004e6636.js></script></p><blockquote><p>Instead of using the <em>shell</em> provisioner to deploy the agent (see line 35 in the template), a more elegant method would call the <strong>&ldquo;type&rdquo;: &ldquo;ansible&rdquo;</strong> provisioner pointing to a <strong>playbook.yml</strong> file in the repository. This would allow you to separate packages into separate playbooks managed in <em>version control</em>.</p></blockquote><h2 id=getting-started-with-terraform>Getting Started With Terraform</h2><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/terraform-overview.png alt="Terraform Overview"></p><p><a href=https://www.terraform.io/>Terraform</a> codifies cloud APIs into declarative configuration files. If you want to create reproducible infrastructure for consistent testing, staging, and production environments with the same configuration, look no further! While it&rsquo;s generally not that simple, Terraform does seem to be the <em>defacto</em> tool these days for <em>Infrastructure as Code</em> in the cloud.</p><h3 id=deploying-some-infrastructure>Deploying Some Infrastructure</h3><p>Let&rsquo;s deploy some foundational infrastructure along with a <a href=https://azure.microsoft.com/en-us/services/virtual-machines/>virtual machine</a> provisioned from the <em>machine image</em> we built above with Packer. Demo code can be found <a href=https://github.com/wcollins/terraform-azure-demo-vm>here.</a></p><p><img src=/images/2021/cloud-grade-automation-with-packer-and-terraform/terraform-deploy.gif alt="Terraform Deploy"></p><p><a href=https://github.com/wcollins/terraform-azure-demo-vm/blob/master/main.tf><strong>main.tf</strong></a>
+<script type=application/javascript src=https://gist.github.com/wcollins/20de391d07fb186ce7ce200b769b9acd.js></script></p><blockquote><p>This template is an example. In practice, this would probably be broken up into at least two distinct modules (network and compute). If specific groups of resources have a similar life cycle, you would probably create a module for them. An example of this might be core network components like VNets, Subnets, and UDRs.</p></blockquote><h2 id=conclusion>Conclusion</h2><p>Learning to use <a href=https://packer.io>Packer</a> or writing <a href=https://terraform.io>Terraform</a> templates is a tiny piece of a vast puzzle. If the desired outcome is <a href=https://https://aws.amazon.com/devops/continuous-delivery/>Continuous Delivery</a> then application architecture, cultural philosophies, and <a href="https://https://en.wikipedia.org/wiki/Release_management#:~:text=Release%20management%20is%20the%20process,testing%20and%20deploying%20software%20releases.">release management</a> all play equally important roles.</p><p>Enterprise Leaders all want <a href="https://https://en.wikipedia.org/wiki/DevOps#:~:text=DevOps%20is%20a%20set%20of,delivery%20with%20high%20software%20quality.">DevOps</a> for the benefits of automation, quicker releases, reduced downtime, reliable recovery from disasters, and cost benefits in the cloud <strong>(That last one makes me chuckle)</strong>. The real question is, will they do what is necessary to buck traditional culture and adopt truly immutable infrastructure?</p></div><footer class=post-footer><div class=post-tags><a href=/tags/azure/>azure</a>
 <a href=/tags/iaas/>iaas</a>
 <a href=/tags/immutability/>immutability</a>
 <a href=/tags/linux/>linux</a>
 <a href=/tags/packer/>packer</a>
 <a href=/tags/terraform/>terraform</a>
-<a href=/tags/ubuntu/>ubuntu</a>
-</div>
-<nav class=post-nav>
-<a class=prev href=/post/2021/exploring-azure-cloud-networking-part-1/>
-<i class="iconfont icon-left"></i>
+<a href=/tags/ubuntu/>ubuntu</a></div><nav class=post-nav><a class=prev href=/post/2021/exploring-azure-cloud-networking-part-1/><i class="iconfont icon-left"></i>
 <span class="prev-text nav-default">Exploring Azure Cloud Networking - (Part 1)</span>
-<span class="prev-text nav-mobile">Prev</span>
-</a>
-<a class=next href=/post/2021/cloud-security-and-azure-private-link/>
-<span class="next-text nav-default">Cloud Security And Azure Private Link</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/2021/cloud-security-and-azure-private-link/><span class="next-text nav-default">Cloud Security And Azure Private Link</span>
 <span class="next-text nav-mobile">Next</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-</div>
-</main>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKVT40M3H"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-9QKVT40M3H',{anonymize_ip:!1})}</script>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKVT40M3H"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9QKVT40M3H",{anonymize_ip:!1})}</script><footer id=footer class=footer><div class=social-links><a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
 <a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
 <a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
-<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=copyright-year>
-&copy;
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=copyright-year>&copy;
 2020 -
-2022<span class=division> | </span>
-<span>William Collins</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+2022<span class=division> |</span>
+<span>William Collins</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
 <script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
 <script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-</body>
-</html>
+<script type=text/javascript src=/js/main.min.1c70606d1b733282f06230615f5561b5894924b6f9930ba2ab99cf1254f75a1a.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-9QKVT40M3H","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

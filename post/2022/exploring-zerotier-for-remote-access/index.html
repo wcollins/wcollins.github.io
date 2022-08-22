@@ -1,249 +1,28 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>Exploring ZeroTier For Remote Access - </title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="William Collins"><meta name=description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things.">
-<meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU">
-<meta name=generator content="Hugo 0.87.0 with theme even">
-<link rel=canonical href=http://wcollins.io/post/2022/exploring-zerotier-for-remote-access/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="Exploring ZeroTier For Remote Access">
-<meta property="og:description" content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="http://wcollins.io/post/2022/exploring-zerotier-for-remote-access/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2022-07-10T12:15:06-04:00">
-<meta property="article:modified_time" content="2022-07-10T12:15:06-04:00">
-<meta itemprop=name content="Exploring ZeroTier For Remote Access">
-<meta itemprop=description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><meta itemprop=datePublished content="2022-07-10T12:15:06-04:00">
-<meta itemprop=dateModified content="2022-07-10T12:15:06-04:00">
-<meta itemprop=wordCount content="1157">
-<meta itemprop=keywords content="opnsense,openvpn,tailscale,zerotier,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Exploring ZeroTier For Remote Access">
-<meta name=twitter:description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
-</head>
-<body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo></a>
-</div>
-<div class=mobile-navbar-icon>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Exploring ZeroTier For Remote Access -</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="William Collins"><meta name=description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><meta name=google-site-verification content="FSCEdJZD7nAoKk16ak20hRMKNBvXlnHAU0PBBDZy5DU"><meta name=generator content="Hugo 0.101.0 with theme even"><link rel=canonical href=http://wcollins.io/post/2022/exploring-zerotier-for-remote-access/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Exploring ZeroTier For Remote Access"><meta property="og:description" content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><meta property="og:type" content="article"><meta property="og:url" content="http://wcollins.io/post/2022/exploring-zerotier-for-remote-access/"><meta property="article:section" content="post"><meta property="article:published_time" content="2022-07-10T12:15:06-04:00"><meta property="article:modified_time" content="2022-07-10T12:15:06-04:00"><meta itemprop=name content="Exploring ZeroTier For Remote Access"><meta itemprop=description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><meta itemprop=datePublished content="2022-07-10T12:15:06-04:00"><meta itemprop=dateModified content="2022-07-10T12:15:06-04:00"><meta itemprop=wordCount content="1157"><meta itemprop=keywords content="opnsense,openvpn,tailscale,zerotier,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Exploring ZeroTier For Remote Access"><meta name=twitter:description content="Zero Trust is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially add and remove encryption at the firewall. This means bad actors can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to hybrid work. ZeroTier is an interesting solution that claims to combine the capabilities of VPN and SD-WAN, among other things."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo></a></div><div class=mobile-navbar-icon><span></span>
 <span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>Home</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>About</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>Archives</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>Tags</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>Categories</li>
-</a>
-</ul>
-</nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo></a>
-</div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>Home</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>About</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>Archives</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>Tags</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>Categories</a>
-</li>
-</ul>
-</nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>Exploring ZeroTier For Remote Access</h1>
-<div class=post-meta>
-<span class=post-time> July 10, 2022 </span>
-<div class=post-category>
-<a href=/categories/mesh-vpn/> mesh-vpn </a>
-<a href=/categories/remote-work/> remote-work </a>
-<a href=/categories/sd-wan/> sd-wan </a>
-<a href=/categories/vpn/> vpn </a>
-<a href=/categories/zero-trust/> zero-trust </a>
-</div>
-<span class=more-meta> 1157 words </span>
-<span class=more-meta> 6 mins read </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>Contents</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#scenario>Scenario</a></li>
-<li><a href=#first-what-is-zerotier>First, What is ZeroTier?</a>
-<ul>
-<li><a href=#zerotier-network-hypervisor>ZeroTier Network Hypervisor</a></li>
-</ul>
-</li>
-<li><a href=#what-is-opnsense>What is OPNsense?</a></li>
-<li><a href=#setting-up-zerotier>Setting up ZeroTier</a>
-<ul>
-<li><a href=#installing-zerotier-plugin>Installing ZeroTier Plugin</a></li>
-<li><a href=#configuring-opnsense>Configuring OPNsense</a></li>
-<li><a href=#authorizing-new-members>Authorizing New Members</a></li>
-<li><a href=#assigning-the-zt-interface>Assigning the ZT Interface</a></li>
-<li><a href=#adding-a-managed-route>Adding a Managed Route</a></li>
-<li><a href=#allowing-traffic-on-opnsense>Allowing Traffic on OPNsense</a></li>
-<li><a href=#connecting-from-client-devices>Connecting from Client Devices</a></li>
-</ul>
-</li>
-<li><a href=#zerotier-sdk>ZeroTier SDK</a></li>
-<li><a href=#conclusion>Conclusion</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-<div class=post-content>
-<p><a href=https://en.wikipedia.org/wiki/Zero_trust_security_model>Zero Trust</a> is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially <em>add</em> and <em>remove</em> encryption at the firewall. This means <em>bad actors</em> can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to <em>hybrid work</em>. <a href=https://zerotier.com>ZeroTier</a> is an interesting solution that claims to combine the capabilities of <em>VPN</em> and <em>SD-WAN</em>, among other things. Let&rsquo;s take it for a spin.</p>
-<div class="admonition tip"><p class=admonition-title>How hard could Zero Trust be?</p>
-<p>Most tech these days supports <em>HTTPS</em>. How hard could <em>Zero Trust</em> be? Anyone that has managed <em>certificates</em> in a large enterprise can answer this question. It is more complicated than it may appear to be on the surface. And as you begin removing that <em>complication</em>, you start trusting <em>identity providers</em> and <em>certificate authorities</em> more broadly. One question that must be asked is, if you are using any number of <em>Zero Trust</em> solutions hitting the market, are they <em>Zero Trust</em> when you trust them to own everything?</p>
-</div>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/intro.png alt=Intro></p>
-<h2 id=scenario>Scenario</h2>
-<p>I know many people <em>(myself included)</em> that want to access devices on their home network while they are away. A solid example here is <em>security cameras</em> or maybe a lab environment that you can test with while traveling. I wouldn&rsquo;t want to make my home cameras reachable directly from the internet.</p>
-<p>One way you could solve this problem is by hosting an <a href=https://openvpn.net/>OpenVPN</a> server on your network, so when you are away, you can fire up the mobile app, connect, and check out what is going on around your property. How would these scenarios work with <em>ZeroTier</em>? Let&rsquo;s lab it up!</p>
-<h2 id=first-what-is-zerotier>First, What is ZeroTier?</h2>
-<p><em>ZeroTier</em> is a <em>Mesh VPN</em> solution. Mesh VPNs facilitate connectivity directly between any two endpoints in the mesh without having to transit through a concentrator in a data center. Sessions between every pair of endpoints are encrypted <em>end-to-end</em>. If a <em>bad actor</em> can exploit a device, they only gain visibility into the traffic coming in and leaving that device, making lateral movement a challenge.</p>
-<h3 id=zerotier-network-hypervisor>ZeroTier Network Hypervisor</h3>
-<p>ZeroTier&rsquo;s <a href=https://github.com/zerotier/ZeroTierOne/tree/master/node>network hypervisor</a> is a custom protocol that implements a <a href=https://en.wikipedia.org/wiki/Virtual_Extensible_LAN>VXLAN</a> <strong>like</strong> ethernet virtualization across two layers:</p>
-<ul>
-<li><strong>Virtual Layer 1 (VL1)</strong>: is the underlying <em>peer-to-peer</em> transport layer handling encryption, endpoint authentication, and credential verification</li>
-<li><strong>Virtual Layer 2 (VL2)</strong>: overlays boundaries, multicast, rule enforcement, and certificate-based access control on <em>(VL1)</em></li>
-</ul>
-<div class="admonition info"><p class=admonition-title>Protocol Design</p>
-<p>Want to dig deeper into ZeroTier&rsquo;s <strong>Network Hypervisor</strong>? Check out the <a href=https://docs.zerotier.com/zerotier/manual>Protocol Design Whitepaper</a> for a transparent explanation of ZeroTier&rsquo;s services, apps, and libraries. Remember, sufficiently advanced technology is like magic until you read the docs!</p>
-</div>
-<h2 id=what-is-opnsense>What is OPNsense?</h2>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/opnsense.png alt=OPNsense></p>
-<p><a href=https://opnsense.org/>OPNsense</a> is an open-source security platform based on <a href=https://www.freebsd.org/>FreeBSD</a>. I have used it historically as an entry point into various lab environments and as a <em>customer-side</em> appliance to terminate <em>site-to-site</em> VPNs for various public cloud providers. Since the platform offers <strong>LDAP</strong> and <strong>2FA</strong>, extending access to others for collaboration is simple. OPNsense offers a <a href=https://docs.opnsense.org/manual/how-tos/zerotier.html>ZeroTier Plugin</a> and supports <em>dynamic routing</em> via <a href=https://docs.opnsense.org/manual/dynamic_routing.html>FRR</a>.</p>
-<div class="admonition danger"><p class=admonition-title>Why are we using a Firewall?</p>
-<p>You may be asking, why are we installing this on a firewall given the <em>peer-to-peer</em> architecture of <em>ZeroTier</em>? By installing <em>ZeroTier</em> on the firewall, it acts as a bridge of sorts between all the devices on my test network and the outside <em>ZeroTier</em> members I authorize. In doing this, I don&rsquo;t have to install the <em>ZeroTier</em> client on each device I want to talk to when operating remotely.</p>
-</div>
-<h2 id=setting-up-zerotier>Setting up ZeroTier</h2>
-<p>First, we need to sign-up for a <a href=https://zerotier.com>ZeroTier Account</a>. Each <em>VL2 network</em> is identified by a <strong>64-bit (16 hex digit)</strong> ID. Once our email is confirmed, we can create a <em>network</em>, add a new friendly name + description, and retrieve the <strong>Network ID</strong>.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/zt-setup-network.gif alt="ZT - Setup Network"></p>
-<h3 id=installing-zerotier-plugin>Installing ZeroTier Plugin</h3>
-<p>Next, let&rsquo;s install the <em>ZeroTier</em> plugin on the OPNsense instance in front of the <em>lab</em>.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/install-zt-plugin.gif alt="ZT - Install Plugin"></p>
-<h3 id=configuring-opnsense>Configuring OPNsense</h3>
-<p>Now, we need to configure the <em>ZeroTier</em> service on <em>OPNsense</em>. First, we must enable the service, and then we can add the <em>network</em> using the <strong>Network ID</strong> generated when we created the <em>network</em> in the <em>ZeroTier</em> portal.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/configure-opnsense.gif alt="Configure Opnsense"></p>
-<h3 id=authorizing-new-members>Authorizing New Members</h3>
-<p>After we add the network in <em>OPNsense</em>, we can hop back to the <em>ZeroTier</em> portal and authorize it. Since I want to enable access for others to this lab environment, I&rsquo;ll be setting up a <em>managed route</em> with the destination as the <strong>RFC1918</strong> space of the lab with the <em>OPNsense</em> instance as the gateway. To prevent any future confusion, I configured <strong>Do Not Auto-Assign IPs</strong> when authorizing, and configured the <em>managed IP</em> statically.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/authorize-member.png alt="Authorize Member"></p>
-<h3 id=assigning-the-zt-interface>Assigning the ZT Interface</h3>
-<p>If you navigate to <strong>Interfaces</strong> > <strong>Assignments</strong>, you should see a new interface populated. We need to add this interface and <em>assign</em> a static <strong>IPv4</strong> address using the <em>managed IP</em> we set in the <em>ZeroTier</em> portal.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/assign-interface.gif alt="Assign Interface"></p>
-<h3 id=adding-a-managed-route>Adding a Managed Route</h3>
-<p>To route traffic beyond the <em>OPNsense</em> instance, we need to add a <em>managed route</em> in <em>ZeroTier</em>. For the <em>destination</em>, we will use the <strong>RFC1918</strong> space for the lab environment. For the gateway <em>(Via)</em>, we will use the <em>managed IP</em> we set for <em>OPNsense</em> in the <em>ZeroTier</em> portal.</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/managed-route.png alt="Managed Route"></p>
-<h3 id=allowing-traffic-on-opnsense>Allowing Traffic on OPNsense</h3>
-<p>To allow communication from other <em>ZeroTier</em> members into our lab environment, we need to add a <em>firewall rule</em> on the <em>ZeroTier</em> interface in <em>OPNsense</em>. Of course, since this is a blog, I&rsquo;m committing the <em>cardinal sin</em> of inserting an <strong>any-to-any</strong> rule. Avoid doing this as a general practice!</p>
-<p><img src=/images/2022/exploring-zerotier-for-remote-access/create-rule.gif alt="Create Rule"></p>
-<div class="admonition note"><p class=admonition-title>Without the Firewall</p>
-<p><em>ZeroTier</em> uses <a href=https://en.wikipedia.org/wiki/UDP_hole_punching>UDP hole punching</a>, which essentially tricks the router into allowing access to a port on a device directly without establishing a <em>TCP session</em>. Since firewalls are stateful, they keep track of connections. Since <em>UDP</em> doesn&rsquo;t establish a session, there is only a concept of inbound/outbound packets on the firewall. This means the firewall has to rely on limited data to let returning packets through <em>(UDP 5-tuple data)</em>.</p>
-</div>
-<h3 id=connecting-from-client-devices>Connecting from Client Devices</h3>
-<p>You can find the <em>ZerTier One</em> application on <a href="https://play.google.com/store/apps/details?id=com.zerotier.one&hl=en_US&gl=US">Google Play</a> or the <a href=https://apps.apple.com/us/app/zerotier-one/id1084101492>Apple Store</a>. Once the <em>app</em> is downloaded, you can provide the <em>network ID</em> and click <strong>Join Network</strong> to connect. Downloads for other platforms can be found <a href=https://www.zerotier.com/download/>here.</a></p>
-<h2 id=zerotier-sdk>ZeroTier SDK</h2>
-<p>Want to enable a mobile app to join a network without requiring special permissions on the phone or adding a <strong>tun/tap</strong> port? The <a href=https://zerotier.atlassian.net/wiki/spaces/SD/pages/569769988/ZeroTier+SDK>ZeroTier SDK</a> takes the <em>network hypervisor</em> and couples it with an embedded TCP/IP stack which you can link into an application library. This essentially moves the <em>network stack</em> into the application itself.</p>
-<h2 id=conclusion>Conclusion</h2>
-<p><strong>Mesh VPNs</strong> offer a <em>thought-provoking</em> alternative to traditional <strong>hub-and-spoke</strong> designs. It would be interesting to see what a <em>large-scale</em> deployment would look like in the typical <em>risk-averse</em> enterprise and how the <em>migration path</em> would play out. <a href=https://tailscale.com>Tailscale</a> seems to be the biggest competitor in this space and more or less does the same thing, just using different protocols. While <em>ZeroTier&rsquo;s</em> protocol is proprietary, <em>Tailscale</em> uses <a href=https://www.wireguard.com/>Wireguard</a> for its data plane. I look forward to seeing how <em>remote work</em> evolves over the next few years.</p>
-</div>
-<footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/opnsense/>opnsense</a>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo></a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Exploring ZeroTier For Remote Access</h1><div class=post-meta><span class=post-time>July 10, 2022</span><div class=post-category><a href=/categories/mesh-vpn/>mesh-vpn</a>
+<a href=/categories/remote-work/>remote-work</a>
+<a href=/categories/sd-wan/>sd-wan</a>
+<a href=/categories/vpn/>vpn</a>
+<a href=/categories/zero-trust/>zero-trust</a></div><span class=more-meta>1157 words</span>
+<span class=more-meta>6 mins read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#scenario>Scenario</a></li><li><a href=#first-what-is-zerotier>First, What is ZeroTier?</a><ul><li><a href=#zerotier-network-hypervisor>ZeroTier Network Hypervisor</a></li></ul></li><li><a href=#what-is-opnsense>What is OPNsense?</a></li><li><a href=#setting-up-zerotier>Setting up ZeroTier</a><ul><li><a href=#installing-zerotier-plugin>Installing ZeroTier Plugin</a></li><li><a href=#configuring-opnsense>Configuring OPNsense</a></li><li><a href=#authorizing-new-members>Authorizing New Members</a></li><li><a href=#assigning-the-zt-interface>Assigning the ZT Interface</a></li><li><a href=#adding-a-managed-route>Adding a Managed Route</a></li><li><a href=#allowing-traffic-on-opnsense>Allowing Traffic on OPNsense</a></li><li><a href=#connecting-from-client-devices>Connecting from Client Devices</a></li></ul></li><li><a href=#zerotier-sdk>ZeroTier SDK</a></li><li><a href=#conclusion>Conclusion</a></li></ul></li></ul></nav></div></div><div class=post-content><p><a href=https://en.wikipedia.org/wiki/Zero_trust_security_model>Zero Trust</a> is all the rage lately, and traditional VPNs are getting a lot of scrutiny since they essentially <em>add</em> and <em>remove</em> encryption at the firewall. This means <em>bad actors</em> can skip off into the sunset (laterally) and gain access to those legacy systems with less effort. Another challenge with using a traditional VPN is scaling with the dramatic shift to <em>hybrid work</em>. <a href=https://zerotier.com>ZeroTier</a> is an interesting solution that claims to combine the capabilities of <em>VPN</em> and <em>SD-WAN</em>, among other things. Let&rsquo;s take it for a spin.</p><div class="admonition tip"><p class=admonition-title>How hard could Zero Trust be?</p><p>Most tech these days supports <em>HTTPS</em>. How hard could <em>Zero Trust</em> be? Anyone that has managed <em>certificates</em> in a large enterprise can answer this question. It is more complicated than it may appear to be on the surface. And as you begin removing that <em>complication</em>, you start trusting <em>identity providers</em> and <em>certificate authorities</em> more broadly. One question that must be asked is, if you are using any number of <em>Zero Trust</em> solutions hitting the market, are they <em>Zero Trust</em> when you trust them to own everything?</p></div><p><img src=/images/2022/exploring-zerotier-for-remote-access/intro.png alt=Intro></p><h2 id=scenario>Scenario</h2><p>I know many people <em>(myself included)</em> that want to access devices on their home network while they are away. A solid example here is <em>security cameras</em> or maybe a lab environment that you can test with while traveling. I wouldn&rsquo;t want to make my home cameras reachable directly from the internet.</p><p>One way you could solve this problem is by hosting an <a href=https://openvpn.net/>OpenVPN</a> server on your network, so when you are away, you can fire up the mobile app, connect, and check out what is going on around your property. How would these scenarios work with <em>ZeroTier</em>? Let&rsquo;s lab it up!</p><h2 id=first-what-is-zerotier>First, What is ZeroTier?</h2><p><em>ZeroTier</em> is a <em>Mesh VPN</em> solution. Mesh VPNs facilitate connectivity directly between any two endpoints in the mesh without having to transit through a concentrator in a data center. Sessions between every pair of endpoints are encrypted <em>end-to-end</em>. If a <em>bad actor</em> can exploit a device, they only gain visibility into the traffic coming in and leaving that device, making lateral movement a challenge.</p><h3 id=zerotier-network-hypervisor>ZeroTier Network Hypervisor</h3><p>ZeroTier&rsquo;s <a href=https://github.com/zerotier/ZeroTierOne/tree/master/node>network hypervisor</a> is a custom protocol that implements a <a href=https://en.wikipedia.org/wiki/Virtual_Extensible_LAN>VXLAN</a> <strong>like</strong> ethernet virtualization across two layers:</p><ul><li><strong>Virtual Layer 1 (VL1)</strong>: is the underlying <em>peer-to-peer</em> transport layer handling encryption, endpoint authentication, and credential verification</li><li><strong>Virtual Layer 2 (VL2)</strong>: overlays boundaries, multicast, rule enforcement, and certificate-based access control on <em>(VL1)</em></li></ul><div class="admonition info"><p class=admonition-title>Protocol Design</p><p>Want to dig deeper into ZeroTier&rsquo;s <strong>Network Hypervisor</strong>? Check out the <a href=https://docs.zerotier.com/zerotier/manual>Protocol Design Whitepaper</a> for a transparent explanation of ZeroTier&rsquo;s services, apps, and libraries. Remember, sufficiently advanced technology is like magic until you read the docs!</p></div><h2 id=what-is-opnsense>What is OPNsense?</h2><p><img src=/images/2022/exploring-zerotier-for-remote-access/opnsense.png alt=OPNsense></p><p><a href=https://opnsense.org/>OPNsense</a> is an open-source security platform based on <a href=https://www.freebsd.org/>FreeBSD</a>. I have used it historically as an entry point into various lab environments and as a <em>customer-side</em> appliance to terminate <em>site-to-site</em> VPNs for various public cloud providers. Since the platform offers <strong>LDAP</strong> and <strong>2FA</strong>, extending access to others for collaboration is simple. OPNsense offers a <a href=https://docs.opnsense.org/manual/how-tos/zerotier.html>ZeroTier Plugin</a> and supports <em>dynamic routing</em> via <a href=https://docs.opnsense.org/manual/dynamic_routing.html>FRR</a>.</p><div class="admonition danger"><p class=admonition-title>Why are we using a Firewall?</p><p>You may be asking, why are we installing this on a firewall given the <em>peer-to-peer</em> architecture of <em>ZeroTier</em>? By installing <em>ZeroTier</em> on the firewall, it acts as a bridge of sorts between all the devices on my test network and the outside <em>ZeroTier</em> members I authorize. In doing this, I don&rsquo;t have to install the <em>ZeroTier</em> client on each device I want to talk to when operating remotely.</p></div><h2 id=setting-up-zerotier>Setting up ZeroTier</h2><p>First, we need to sign-up for a <a href=https://zerotier.com>ZeroTier Account</a>. Each <em>VL2 network</em> is identified by a <strong>64-bit (16 hex digit)</strong> ID. Once our email is confirmed, we can create a <em>network</em>, add a new friendly name + description, and retrieve the <strong>Network ID</strong>.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/zt-setup-network.gif alt="ZT - Setup Network"></p><h3 id=installing-zerotier-plugin>Installing ZeroTier Plugin</h3><p>Next, let&rsquo;s install the <em>ZeroTier</em> plugin on the OPNsense instance in front of the <em>lab</em>.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/install-zt-plugin.gif alt="ZT - Install Plugin"></p><h3 id=configuring-opnsense>Configuring OPNsense</h3><p>Now, we need to configure the <em>ZeroTier</em> service on <em>OPNsense</em>. First, we must enable the service, and then we can add the <em>network</em> using the <strong>Network ID</strong> generated when we created the <em>network</em> in the <em>ZeroTier</em> portal.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/configure-opnsense.gif alt="Configure Opnsense"></p><h3 id=authorizing-new-members>Authorizing New Members</h3><p>After we add the network in <em>OPNsense</em>, we can hop back to the <em>ZeroTier</em> portal and authorize it. Since I want to enable access for others to this lab environment, I&rsquo;ll be setting up a <em>managed route</em> with the destination as the <strong>RFC1918</strong> space of the lab with the <em>OPNsense</em> instance as the gateway. To prevent any future confusion, I configured <strong>Do Not Auto-Assign IPs</strong> when authorizing, and configured the <em>managed IP</em> statically.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/authorize-member.png alt="Authorize Member"></p><h3 id=assigning-the-zt-interface>Assigning the ZT Interface</h3><p>If you navigate to <strong>Interfaces</strong> > <strong>Assignments</strong>, you should see a new interface populated. We need to add this interface and <em>assign</em> a static <strong>IPv4</strong> address using the <em>managed IP</em> we set in the <em>ZeroTier</em> portal.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/assign-interface.gif alt="Assign Interface"></p><h3 id=adding-a-managed-route>Adding a Managed Route</h3><p>To route traffic beyond the <em>OPNsense</em> instance, we need to add a <em>managed route</em> in <em>ZeroTier</em>. For the <em>destination</em>, we will use the <strong>RFC1918</strong> space for the lab environment. For the gateway <em>(Via)</em>, we will use the <em>managed IP</em> we set for <em>OPNsense</em> in the <em>ZeroTier</em> portal.</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/managed-route.png alt="Managed Route"></p><h3 id=allowing-traffic-on-opnsense>Allowing Traffic on OPNsense</h3><p>To allow communication from other <em>ZeroTier</em> members into our lab environment, we need to add a <em>firewall rule</em> on the <em>ZeroTier</em> interface in <em>OPNsense</em>. Of course, since this is a blog, I&rsquo;m committing the <em>cardinal sin</em> of inserting an <strong>any-to-any</strong> rule. Avoid doing this as a general practice!</p><p><img src=/images/2022/exploring-zerotier-for-remote-access/create-rule.gif alt="Create Rule"></p><div class="admonition note"><p class=admonition-title>Without the Firewall</p><p><em>ZeroTier</em> uses <a href=https://en.wikipedia.org/wiki/UDP_hole_punching>UDP hole punching</a>, which essentially tricks the router into allowing access to a port on a device directly without establishing a <em>TCP session</em>. Since firewalls are stateful, they keep track of connections. Since <em>UDP</em> doesn&rsquo;t establish a session, there is only a concept of inbound/outbound packets on the firewall. This means the firewall has to rely on limited data to let returning packets through <em>(UDP 5-tuple data)</em>.</p></div><h3 id=connecting-from-client-devices>Connecting from Client Devices</h3><p>You can find the <em>ZerTier One</em> application on <a href="https://play.google.com/store/apps/details?id=com.zerotier.one&hl=en_US&gl=US">Google Play</a> or the <a href=https://apps.apple.com/us/app/zerotier-one/id1084101492>Apple Store</a>. Once the <em>app</em> is downloaded, you can provide the <em>network ID</em> and click <strong>Join Network</strong> to connect. Downloads for other platforms can be found <a href=https://www.zerotier.com/download/>here.</a></p><h2 id=zerotier-sdk>ZeroTier SDK</h2><p>Want to enable a mobile app to join a network without requiring special permissions on the phone or adding a <strong>tun/tap</strong> port? The <a href=https://zerotier.atlassian.net/wiki/spaces/SD/pages/569769988/ZeroTier+SDK>ZeroTier SDK</a> takes the <em>network hypervisor</em> and couples it with an embedded TCP/IP stack which you can link into an application library. This essentially moves the <em>network stack</em> into the application itself.</p><h2 id=conclusion>Conclusion</h2><p><strong>Mesh VPNs</strong> offer a <em>thought-provoking</em> alternative to traditional <strong>hub-and-spoke</strong> designs. It would be interesting to see what a <em>large-scale</em> deployment would look like in the typical <em>risk-averse</em> enterprise and how the <em>migration path</em> would play out. <a href=https://tailscale.com>Tailscale</a> seems to be the biggest competitor in this space and more or less does the same thing, just using different protocols. While <em>ZeroTier&rsquo;s</em> protocol is proprietary, <em>Tailscale</em> uses <a href=https://www.wireguard.com/>Wireguard</a> for its data plane. I look forward to seeing how <em>remote work</em> evolves over the next few years.</p></div><footer class=post-footer><div class=post-tags><a href=/tags/opnsense/>opnsense</a>
 <a href=/tags/openvpn/>openvpn</a>
 <a href=/tags/tailscale/>tailscale</a>
-<a href=/tags/zerotier/>zerotier</a>
-</div>
-<nav class=post-nav>
-<a class=prev href=/post/2022/aws-community-day-midwest/>
-<i class="iconfont icon-left"></i>
+<a href=/tags/zerotier/>zerotier</a></div><nav class=post-nav><a class=prev href=/post/2022/aws-community-day-midwest/><i class="iconfont icon-left"></i>
 <span class="prev-text nav-default">AWS Community Day - Midwest</span>
-<span class="prev-text nav-mobile">Prev</span>
-</a>
-<a class=next href=/post/2022/importing-infrastructure-with-azure-terrafy/>
-<span class="next-text nav-default">Importing Infrastructure With Azure Terrafy</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/2022/importing-infrastructure-with-azure-terrafy/><span class="next-text nav-default">Importing Infrastructure With Azure Terrafy</span>
 <span class="next-text nav-mobile">Next</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-</div>
-</main>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKVT40M3H"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-9QKVT40M3H',{anonymize_ip:!1})}</script>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKVT40M3H"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9QKVT40M3H",{anonymize_ip:!1})}</script><footer id=footer class=footer><div class=social-links><a href=https://twitter.com/wcollins502/ class="iconfont icon-twitter" title=twitter></a>
 <a href=https://www.linkedin.com/in/william-collins/ class="iconfont icon-linkedin" title=linkedin></a>
 <a href=https://github.com/wcollins/ class="iconfont icon-github" title=github></a>
-<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=copyright-year>
-&copy;
+<a href=http://wcollins.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=copyright-year>&copy;
 2020 -
-2022<span class=division> | </span>
-<span>William Collins</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+2022<span class=division> |</span>
+<span>William Collins</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
 <script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
 <script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js></script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9QKVT40M3H','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-</body>
-</html>
+<script type=text/javascript src=/js/main.min.1c70606d1b733282f06230615f5561b5894924b6f9930ba2ab99cf1254f75a1a.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-9QKVT40M3H","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
