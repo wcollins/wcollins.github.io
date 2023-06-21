@@ -1,4 +1,4 @@
-# Cloud Security Alliance - Is The Traditional Network Dead?
+# Cloud Security Alliance - Kansas City, MO
 
 ![Cloud Security Alliance](csa-kc.png)
 
