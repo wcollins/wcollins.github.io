@@ -1,5 +1,7 @@
 {
-    "name": "",
+    "name": "William Collins",
+    "short_name": "wcollins.io",
+    "description": "Exploring cloud computing, automation, AI, and the human perspective in tech",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
